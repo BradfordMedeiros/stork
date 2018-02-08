@@ -16,21 +16,20 @@
 
 
 
+
  */
-const express = require('express');
 
-const app = express();
+const loadSlaves = require('./src/loadSlaves');
+const parseCommand = require('./src/parseCommand');
+const getDeviceManager = require('./src/getDeviceManager');
+const getExecuteCommand = require('./src/getExecuteCommand/getExecuteCommand');
 
-app.get('/', (req,res) => {
-  res.send('ok');
-});
+slaves = loadSlaves('./slaves');
+deviceManager = getDeviceManager(slaves);
+executeCommand = getExecuteCommand(deviceManager);
 
-app.get('/list', (req, res) => {
-  res.send('list ok');
-});
+const commandString = process.argv.slice(1).join(' ');
+const command = parseCommand(commandString);
 
-
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log('listening on port: ', PORT);
-});
+console.log(commandString);
+console.log(command);
