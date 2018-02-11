@@ -1,6 +1,6 @@
 
-const testSlave = {
-  type: 'test_slave',
+const debugSlave = {
+  type: 'debug',
   isValidReachabilityInfo: identification => {
     return typeof(identification) === 'string';
   },
@@ -20,4 +20,4 @@ const testSlave = {
   },
 };
 
-module.exports = testSlave;
+module.exports = debugSlave;
