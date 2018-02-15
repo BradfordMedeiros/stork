@@ -28,7 +28,7 @@ const commands = {
 };
 
 const parseCommand = commandString => {
-  const args = process.argv.map(x => x).slice(1);
+  const args = commandString.split(' ');
 
   const commandType = args[1];
   const generateCommand = commands[commandType];

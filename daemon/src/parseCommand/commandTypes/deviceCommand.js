@@ -23,6 +23,7 @@ const deviceCommand = args => {
     });
   }
 
+  console.log('command.list: ', commander.list);
   if (
     commander.list === undefined &&
     commander.add &&

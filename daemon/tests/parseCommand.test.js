@@ -1,8 +1,30 @@
 const assert = require('assert');
+const parseCommand = require('../src/parseCommand/parseCommand');
 
 describe('expression parsing device commands', () => {
-  it('device list command');
-  it('device add command');
+  it('device list command', () => {
+    const expected = {
+      isValid: true,
+      type: 'device',
+      option: {
+        type: 'list'
+      }
+    };
+    assert.deepEqual(parseCommand('stork device -l'), expected);
+    assert.deepEqual(parseCommand('stork device --list'), expected);
+  });
+  it('device add command', () => {
+    const expected = {
+      isValid: true,
+      type: 'device',
+      option: {
+        type: 'add',
+        name: 'testdevice',
+        reach: '127.0.0.1',
+      }
+    };
+    assert.deepEqual(parseCommand('stork device --add testdevice --reach 127.0.0.1'),expected);
+  });
   it('device remove command');
 });
 
