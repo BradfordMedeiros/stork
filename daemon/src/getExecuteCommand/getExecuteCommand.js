@@ -5,9 +5,7 @@ const executeWarnInvalidCommand = () => {
   console.error("Invalid command");
 };
 
-
 const getExecuteCommand = deviceManager => {
-
   const executeCommand = commandObject => {
     if (commandObject.isValid !== true) {
       executeWarnInvalidCommand();
