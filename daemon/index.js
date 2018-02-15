@@ -20,7 +20,7 @@
  */
 
 const loadSlaves = require('./src/loadSlaves');
-const parseCommand = require('./src/parseCommand');
+const parseCommand = require('./src/parseCommand/parseCommand');
 const getDeviceManager = require('./src/getDeviceManager');
 const getExecuteCommand = require('./src/getExecuteCommand/getExecuteCommand');
 

@@ -19,8 +19,6 @@
 
 
 
-
-
 example:  
 // config is arbitary text that the device will parse
 
