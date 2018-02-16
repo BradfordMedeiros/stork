@@ -39,9 +39,62 @@ describe('expression parsing device commands', () => {
 });
 
 describe('expression parsing group commands', () => {
-  it('group list command');
-  it('group add command');
-  it('group remove command');
+  it('group list command', () => {
+    const expected = {
+      isValid: true,
+      type: 'group',
+      option: {
+        type: 'list'
+      }
+    };
+    assert.deepEqual(parseCommand('stork group -l'), expected);
+  });
+  it('group add command', () => {
+    const expected = {
+      isValid: true,
+      type: 'group',
+      option: {
+        type: 'add_group',
+        value: 'somegroup',
+      }
+    };
+    assert.deepEqual(parseCommand('stork group -a somegroup'),expected);
+  });
+  it('group remove command', () => {
+    const expected = {
+      isValid: true,
+      type: 'group',
+      option: {
+        type: 'remove_group',
+        value: 'anothergroup',
+      }
+    };
+    assert.deepEqual(parseCommand('stork group -r anothergroup'), expected);
+  });
+  it('group add device', () => {
+    const expected = {
+      isValid: true,
+      type: 'group',
+      option: {
+        type: 'add_device',
+        group: 'acoolgroup',
+        device: 'somecooldevice',
+      }
+    };
+    assert.deepEqual(parseCommand('stork group -a acoolgroup -d somecooldevice'), expected);
+  });
+  it('group remove device', () => {
+    const expected = {
+      isValid: true,
+      type: 'group',
+      option: {
+        type: 'remove_device',
+        group: 'acoolgroup',
+        device: 'somecooldevice',
+      }
+    };
+    assert.deepEqual(parseCommand('stork group -r acoolgroup -d somecooldevice'), expected);
+  });
 });
 
 describe('expression parsing config commands',  () => {

@@ -20,7 +20,7 @@ const groupCommand = args => {
 
   if (
     commander.l === undefined &&
-    commander.a &&
+    typeof(commander.a) === 'string' &&
     commander.r === undefined &&
     commander.d === undefined
   ){
@@ -29,7 +29,7 @@ const groupCommand = args => {
         type: 'group',
         option: {
           type: 'add_group',
-          value: commander.add,
+          value: commander.a,
         }
       })
   }
@@ -37,7 +37,7 @@ const groupCommand = args => {
   if (
     commander.l === undefined &&
     commander.a === undefined &&
-    commander.r  &&
+    typeof(commander.r) === 'string'  &&
     commander.d === undefined
   ){
     return ({
@@ -45,24 +45,24 @@ const groupCommand = args => {
       type: 'group',
       option: {
         type: 'remove_group',
-        value: commander.remove,
+        value: commander.r,
       }
     })
   }
 
   if (
-    commander.list === undefined &&
-    commander.add &&
-    commander.remove === undefined &&
-    commander.device
+    commander.l === undefined &&
+    typeof(commander.a) === 'string' &&
+    commander.r === undefined &&
+    typeof(commander.d) === 'string'
   ){
     return ({
       isValid: true,
       type: 'group',
       option: {
         type: 'add_device',
-        group: commander.add,
-        device: commander.device,
+        group: commander.a,
+        device: commander.d,
       }
     })
   }
@@ -70,8 +70,8 @@ const groupCommand = args => {
   if (
     commander.l === undefined &&
     commander.a === undefined &&
-    commander.r  &&
-    commander.d
+    typeof(commander.r) === 'string'  &&
+    typeof(commander.d) === 'string'
   ){
     return ({
       isValid: true,
