@@ -24,7 +24,18 @@ describe('expression parsing device commands', () => {
     };
     assert.deepEqual(parseCommand('stork device -a testdevice -r 127.0.0.1'),expected);
   });
-  it('device remove command');
+  it('device remove command', () => {
+    const expected = {
+      isValid: true,
+      type: 'device',
+      option: {
+        type: 'delete',
+        id: 'testdevice',
+      }
+    };
+
+    assert.deepEqual(parseCommand('stork device -d testdevice'), expected);
+  });
 });
 
 describe('expression parsing group commands', () => {
