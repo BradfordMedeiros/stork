@@ -6,7 +6,7 @@ const mockSlaves = {
     type: 'mock_slave',
     get_value: () => value,
     isValidReachabilityInfo: identification => {
-      return true;
+      return (Number(identification) > 5);
     },
     status: async () => {
       return 'ok';
