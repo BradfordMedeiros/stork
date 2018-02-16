@@ -18,11 +18,12 @@ const getDeviceManager = slaves => {
       throw (new Error('device type has bad reachability info'));
     }
 
-    devices[uuid()] = ({
+    const id = uuid();
+    devices[id] = ({
       type: deviceType,
       info: reachabilityInfo,
     });
-
+    return id;
   };
   const removeDevice = id => {
     if (typeof(id) !== 'string'){
@@ -32,15 +33,19 @@ const getDeviceManager = slaves => {
     delete devices[id];
   };
 
+  const deviceExists = id => devices[id] !== undefined;
+
   const getDevices = () => JSON.parse(JSON.stringify(devices));
 
   const deviceManager = {
     addDevice,
     removeDevice,
     getDevices,
+    deviceExists,
   };
 
   return deviceManager;
 };
 
 module.exports = getDeviceManager;
+

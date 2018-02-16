@@ -3,12 +3,11 @@ const mockSlaves = require('./mocks/mockSlaves');
 const getDeviceManager = require('../../src/getDeviceManager');
 
 
-describe('device manager ', () => {
+describe('device manager -- devices ', () => {
   it('add a device', () => {
     const DeviceManager = getDeviceManager(mockSlaves);  // valid reachability if number > 5
     DeviceManager.addDevice('mock_slave', '127');
     const devices = DeviceManager.getDevices();
-    console.log(devices)
     assert.equal(Object.keys(devices).length, 1);
   });
   it('remove a device', () => {
@@ -27,10 +26,33 @@ describe('device manager ', () => {
     const devicesWithDeviceRemoved = DeviceManager.getDevices();
     assert.notEqual(devices, devicesWithDeviceRemoved);
   });
-  it('add a couple more devices');
-  it('remove a device');
+  it('adds only with valid reachability', () => {
+    const DeviceManager = getDeviceManager(mockSlaves);  // valid reachability if number > 5
+    let didError = false;
+    try {
+      DeviceManager.addDevice('mock_slave', '2');
+    } catch (e) {
+      didError = true;    // probably better to have a boolean check/ return value instead of this
+    }
+    assert.equal(didError, true);
+  });
+  it('can check if a device added exists', () => {
+    const DeviceManager = getDeviceManager(mockSlaves);  // valid reachability if number > 5
+    const id = DeviceManager.addDevice('mock_slave', '200');
+    assert.equal(DeviceManager.deviceExists(id), true);
+  });
+  it('remove a device', () => {
+    const DeviceManager = getDeviceManager(mockSlaves);  // valid reachability if number > 5
+    const id = DeviceManager.addDevice('mock_slave', '200');
+    DeviceManager.removeDevice(id);
+    assert.equal(DeviceManager.deviceExists(id), false);
+  });
+});
+
+describe('device manager -- groups', () => {
   it('add group');
   it('add some device to a group');
   it('remove device belonging to that group');
   it('remove group');
 });
+
