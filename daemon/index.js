@@ -19,6 +19,7 @@
 
  */
 
+
 const loadSlaves = require('./src/loadSlaves');
 const parseCommand = require('./src/parseCommand/parseCommand');
 const getDeviceManager = require('./src/getDeviceManager');

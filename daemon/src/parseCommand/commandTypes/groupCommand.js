@@ -1,18 +1,13 @@
-const commander = require('commander');
+const minimist = require('minimist');
 
 const groupCommand = args => {
-  commander
-    .option('-l, --list', 'list groups')
-    .option('-a, --add [type]', 'add group or remove device from group')
-    .option('-r, --remove [type]', 'remove group or remove device from group')
-    .option('-d, --device [type]', 'add device to group')
-    .parse(args);
+  const commander = minimist(args);
 
   if (
-    commander.list === true &&
-    commander.add === undefined &&
-    commander.remove === undefined &&
-    commander.device === undefined
+    commander.l === true &&
+    commander.a === undefined &&
+    commander.r === undefined &&
+    commander.d === undefined
   ){
     return ({
       isValid: true,
@@ -24,10 +19,10 @@ const groupCommand = args => {
   }
 
   if (
-    commander.list === undefined &&
-    commander.add &&
-    commander.remove === undefined &&
-    commander.device === undefined
+    commander.l === undefined &&
+    commander.a &&
+    commander.r === undefined &&
+    commander.d === undefined
   ){
       return ({
         isValid: true,
@@ -40,10 +35,10 @@ const groupCommand = args => {
   }
 
   if (
-    commander.list === undefined &&
-    commander.add === undefined &&
-    commander.remove  &&
-    commander.device === undefined
+    commander.l === undefined &&
+    commander.a === undefined &&
+    commander.r  &&
+    commander.d === undefined
   ){
     return ({
       isValid: true,
@@ -73,18 +68,18 @@ const groupCommand = args => {
   }
 
   if (
-    commander.list === undefined &&
-    commander.add === undefined &&
-    commander.remove  &&
-    commander.device
+    commander.l === undefined &&
+    commander.a === undefined &&
+    commander.r  &&
+    commander.d
   ){
     return ({
       isValid: true,
       type: 'group',
       option: {
         type: 'remove_device',
-        group: commander.remove,
-        device: commander.device,
+        group: commander.r,
+        device: commander.d,
       }
     })
   }
