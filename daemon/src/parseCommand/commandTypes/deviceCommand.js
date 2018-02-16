@@ -20,9 +20,9 @@ const deviceCommand = args => {
 
   if (
     commander.l === undefined &&
-    commander.a &&
+    typeof(commander.a) === 'string' &&
     commander.d ===  undefined &&
-    commander.r &&
+    typeof(commander.r) === 'string' &&
     commander.i === undefined
   ){
     return ({
@@ -39,8 +39,9 @@ const deviceCommand = args => {
   if (
     commander.l === undefined &&
     commander.a === undefined &&
-    commander.d &&
-    commander.r === undefined
+    typeof(commander.d) === 'string' &&
+    commander.r === undefined &&
+    commander.i === undefined
   ){
     return ({
       isValid: true,
