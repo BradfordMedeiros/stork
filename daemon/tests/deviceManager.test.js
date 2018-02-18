@@ -3,7 +3,7 @@ const mockSlaves = require('./mocks/mockSlaves');
 const getDeviceManager = require('../src/getDeviceManager');
 
 
-describe('device manager -- devices ', () => {
+describe('device manager', () => {
   it('add a device', () => {
     const DeviceManager = getDeviceManager(mockSlaves);  // valid reachability if number > 5
     DeviceManager.addDevice('mock_slave', '127');
