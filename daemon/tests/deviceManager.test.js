@@ -1,6 +1,6 @@
 const assert = require('assert');
 const mockSlaves = require('./mocks/mockSlaves');
-const getDeviceManager = require('../../src/getDeviceManager');
+const getDeviceManager = require('../src/getDeviceManager');
 
 
 describe('device manager -- devices ', () => {
@@ -48,11 +48,3 @@ describe('device manager -- devices ', () => {
     assert.equal(DeviceManager.deviceExists(id), false);
   });
 });
-
-describe('device manager -- groups', () => {
-  it('add group');
-  it('add some device to a group');
-  it('remove device belonging to that group');
-  it('remove group');
-});
-
