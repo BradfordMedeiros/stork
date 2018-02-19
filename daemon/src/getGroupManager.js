@@ -1,6 +1,25 @@
+const fs = require('fs');
+const path = require('path');
+const process = require('process');
 
-const getGroupManager = () => {
-  const groups = { };
+const loadInitialData = persistFilePath => {
+  console.warn('@todo check if all of these guys are valid slave types here.');
+  const filePath = path.resolve(persistFilePath);
+  try {
+    if (!fs.existsSync(filePath)){
+      return { };
+    }
+    const data = fs.readFileSync(filePath).toString();
+    return JSON.parse(data);
+  }catch (err){
+    console.error('critical error could not load file -- looks corrupted');
+    process.exit(1);
+  }
+};
+
+
+const getGroupManager = persistFilePath => {
+  const groups = loadInitialData(persistFilePath);
 
   const addGroup = groupName => {
     if (typeof(groupName) !== 'string'){
@@ -13,6 +32,7 @@ const getGroupManager = () => {
     groups[groupName] = {
       devices: []
     };
+    persist();
   };
 
   const removeGroup = groupName => {
@@ -24,6 +44,7 @@ const getGroupManager = () => {
     }
 
     delete groups[groupName];
+    persist();
   };
 
   const addDeviceToGroup = (groupName, deviceId) => {
@@ -44,6 +65,7 @@ const getGroupManager = () => {
     }
 
     groups[groupName].devices.push(deviceId);
+    persist();
   };
 
   const removeDeviceFromGroup = (groupName, deviceId) => {
@@ -62,6 +84,7 @@ const getGroupManager = () => {
 
     const deviceIndex = groups[groupName].devices.indexOf(deviceId);
     groups[groupName].devices.splice(deviceIndex, 1);
+    persist();
   };
 
   const getDevicesFromGroup = groupName => {
@@ -77,6 +100,19 @@ const getGroupManager = () => {
   const groupExists = groupName => groups[groupName] !== undefined;
 
   const getGroups = () => JSON.parse(JSON.stringify(groups));
+
+  const persist = () => {
+    const shouldPersist = persistFilePath !== undefined;
+    if (shouldPersist){
+      const normalizedFilePath = path.resolve(persistFilePath);
+      try {
+        fs.writeFileSync(normalizedFilePath, JSON.stringify(groups));
+      }catch(err){
+        console.log('persist failed: ', err);
+        console.log('error not handled gracefully');
+      }
+    }
+  };
 
   const groupManager = {
     addGroup,

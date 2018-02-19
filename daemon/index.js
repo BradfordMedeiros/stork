@@ -28,7 +28,7 @@ const getExecuteCommand = require('./src/getExecuteCommand/getExecuteCommand');
 
 slaves = loadSlaves('./slaves');
 deviceManager = getDeviceManager(slaves, './persistData/savedDevices');
-groupManager = getGroupManager();
+groupManager = getGroupManager('./persistData/savedGroups');
 executeCommand = getExecuteCommand(deviceManager, groupManager);
 
 const commandString = process.argv.slice(1).join(' ');
