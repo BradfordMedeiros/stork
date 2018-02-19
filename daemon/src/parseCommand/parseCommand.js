@@ -16,6 +16,7 @@ const process = require('process');
 
 const deviceCommand = require('./commandTypes/deviceCommand');
 const groupCommand = require('./commandTypes/groupCommand');
+const commandCommand = require('./commandTypes/commandCommand');
 
 const invalidCommand = () => ({
   isValid: false,
@@ -24,7 +25,7 @@ const invalidCommand = () => ({
 const commands = {
   device: deviceCommand,
   group: groupCommand,
-
+  command: commandCommand,
 };
 
 const parseCommand = commandString => {

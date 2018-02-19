@@ -1,6 +1,7 @@
 
 const executeDeviceCommand = require('./commandTypes/executeDeviceCommand');
-const executeGroupCommand = require('./commandTypes/executeGroupCommand');''
+const executeGroupCommand = require('./commandTypes/executeGroupCommand');
+const executeCommandCommand = require('./commandTypes/executeCommandCommand');
 
 const executeWarnInvalidCommand = () => {
   console.error("Invalid command");
@@ -9,6 +10,7 @@ const executeWarnInvalidCommand = () => {
 const commandTypeExecute = {
   device: ({ command, deviceManager }) => () => executeDeviceCommand(command, deviceManager),
   group: ({ command, groupManager }) => () => executeGroupCommand(command, groupManager),
+  command: ({ command, deviceManager, groupManager }) => () => executeCommandCommand(command, deviceManager, groupManager),
 };
 
 const getExecuteCommand = (deviceManager, groupManager) => {
