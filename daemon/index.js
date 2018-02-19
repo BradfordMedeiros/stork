@@ -23,11 +23,13 @@
 const loadSlaves = require('./src/loadSlaves');
 const parseCommand = require('./src/parseCommand/parseCommand');
 const getDeviceManager = require('./src/getDeviceManager');
+const getGroupManager = require('./src/getGroupManager');
 const getExecuteCommand = require('./src/getExecuteCommand/getExecuteCommand');
 
 slaves = loadSlaves('./slaves');
 deviceManager = getDeviceManager(slaves, './persistData/savedDevices');
-executeCommand = getExecuteCommand(deviceManager);
+groupManager = getGroupManager();
+executeCommand = getExecuteCommand(deviceManager, groupManager);
 
 const commandString = process.argv.slice(1).join(' ');
 const command = parseCommand(commandString);

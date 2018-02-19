@@ -17,7 +17,7 @@ const executeRemove = (deviceManager, deviceId) => deviceManager.removeDevice(de
 
 const executeDeviceCommand = (command, deviceManager) => {
   if (command.option.type === 'list'){
-   executeList(deviceManager);
+    executeList(deviceManager);
   }else if (command.option.type === 'add'){
     executeAdd(deviceManager, command.option.name, command.option.reach);
   }else if (command.option.type === 'delete'){

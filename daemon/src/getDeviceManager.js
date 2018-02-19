@@ -5,6 +5,7 @@ const path = require('path');
 const process = require('process');
 
 const loadInitialData = persistFilePath => {
+  console.warn('@todo check if all of these guys are valid slave types here.');
   const filePath = path.resolve(persistFilePath);
   try {
     if (!fs.existsSync(filePath)){
