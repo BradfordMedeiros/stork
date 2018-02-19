@@ -32,5 +32,5 @@ executeCommand = getExecuteCommand(deviceManager);
 const commandString = process.argv.slice(1).join(' ');
 const command = parseCommand(commandString);
 
-console.log(commandString);
-console.log(command);
+executeCommand(command);
+
