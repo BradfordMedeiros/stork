@@ -26,7 +26,7 @@ const getDeviceManager = require('./src/getDeviceManager');
 const getExecuteCommand = require('./src/getExecuteCommand/getExecuteCommand');
 
 slaves = loadSlaves('./slaves');
-deviceManager = getDeviceManager(slaves);
+deviceManager = getDeviceManager(slaves, './persistData/savedDevices');
 executeCommand = getExecuteCommand(deviceManager);
 
 const commandString = process.argv.slice(1).join(' ');

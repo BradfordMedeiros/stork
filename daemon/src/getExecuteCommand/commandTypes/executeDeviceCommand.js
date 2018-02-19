@@ -3,11 +3,11 @@ const executeList  = deviceManager => {
   console.log('Stork Devices');
   console.log('--------------------');
   const devices = deviceManager.getDevices();
-  const deviceArray = Object.keys(devices).map(deviceKey => devices[deviceKey]);
-  if (deviceArray.length === 0){
+
+  if (Object.keys(devices).length === 0){
     console.log('no devices\n');
   }else {
-    console.log(deviceArray.join('\n'));
+    console.log(devices);
   }
 };
 
@@ -19,7 +19,6 @@ const executeDeviceCommand = (command, deviceManager) => {
   }else if (command.option.type === 'add'){
     executeAdd(deviceManager, command.option.name, command.option.reach);
   }
-  console.log(command);
 };
 
 module.exports = executeDeviceCommand;

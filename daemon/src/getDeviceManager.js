@@ -1,9 +1,28 @@
 
 const uuid = require('uuid');
+const fs = require('fs');
+const path = require('path');
+const process = require('process');
 
-const getDeviceManager = slaves => {
+const loadInitialData = persistFilePath => {
+  const filePath = path.resolve(persistFilePath);
+  try {
+    if (!fs.existsSync(filePath)){
+      return { };
+    }
+    const data = fs.readFileSync(filePath).toString();
+    return JSON.parse(data);
+  }catch (err){
+    console.error('critical error could not load file -- looks corrupted');
+    process.exit(1);
+  }
+};
 
-  const devices = { };
+const getDeviceManager = (slaves, persistFilePath) => {
+  if (typeof(slaves) !== 'object'){
+    throw (new Error('slaves not defined as object in call to device manager'));
+  }
+  const devices = loadInitialData(persistFilePath);
 
   const addDevice = (deviceType, reachabilityInfo) => {
     if (typeof(deviceType) !== 'string' || typeof(reachabilityInfo) !== 'string'){
@@ -23,6 +42,7 @@ const getDeviceManager = slaves => {
       type: deviceType,
       info: reachabilityInfo,
     });
+    persist();
     return id;
   };
   const removeDevice = id => {
@@ -31,11 +51,25 @@ const getDeviceManager = slaves => {
     }
 
     delete devices[id];
+    persist();
   };
 
   const deviceExists = id => devices[id] !== undefined;
 
   const getDevices = () => JSON.parse(JSON.stringify(devices));
+
+  const persist = () => {
+    const shouldPersist = persistFilePath !== undefined;
+    if (shouldPersist){
+      const normalizedFilePath = path.resolve(persistFilePath);
+      try {
+        fs.writeFileSync(normalizedFilePath, JSON.stringify(devices));
+      }catch(err){
+        console.log('persist failed: ', err);
+        console.log('error not handled gracefully');
+      }
+    }
+  };
 
   const deviceManager = {
     addDevice,
