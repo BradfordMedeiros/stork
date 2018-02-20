@@ -2,7 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const process = require('process');
 
-const loadInitialData = persistFilePath => {
+const loadInitialData = ({ persistFilePath, shouldPersist })=> {
+  if (shouldPersist !== true){
+    return { };
+  }
+
   console.warn('@todo check if all of these guys are valid slave types here.');
   const filePath = path.resolve(persistFilePath);
   try {
@@ -19,7 +23,8 @@ const loadInitialData = persistFilePath => {
 
 
 const getGroupManager = persistFilePath => {
-  const groups = loadInitialData(persistFilePath);
+  const shouldPersist = persistFilePath !== undefined;
+  const groups = loadInitialData({ persistFilePath, shouldPersist });
 
   const addGroup = groupName => {
     if (typeof(groupName) !== 'string'){
@@ -102,7 +107,6 @@ const getGroupManager = persistFilePath => {
   const getGroups = () => JSON.parse(JSON.stringify(groups));
 
   const persist = () => {
-    const shouldPersist = persistFilePath !== undefined;
     if (shouldPersist){
       const normalizedFilePath = path.resolve(persistFilePath);
       try {

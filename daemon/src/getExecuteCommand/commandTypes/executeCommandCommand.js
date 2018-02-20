@@ -1,6 +1,7 @@
 
 
 const executeCommandCommand = (command, deviceManager, groupManager) => {
+  console.log(command);
   if (command.option.type === 'device'){
     console.log('device command')
   }else if (command.option.type === 'group'){

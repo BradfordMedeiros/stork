@@ -18,6 +18,9 @@ const debugSlave = {
       success: true,
     };
   },
+  commands: {
+
+  },
 };
 
 module.exports = debugSlave;

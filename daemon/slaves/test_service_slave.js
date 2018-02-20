@@ -20,7 +20,11 @@ const testServiceSlave = {
         config: 2304,
       })
     });
-
+  },
+  commands: {
+    test: async () => {
+      console.log('wow');
+    }
   },
 };
 

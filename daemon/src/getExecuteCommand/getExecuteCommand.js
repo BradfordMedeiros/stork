@@ -13,7 +13,7 @@ const commandTypeExecute = {
   command: ({ command, deviceManager, groupManager }) => () => executeCommandCommand(command, deviceManager, groupManager),
 };
 
-const getExecuteCommand = (deviceManager, groupManager) => {
+const getExecuteCommand = ({ deviceManager, groupManager }) => {
   if (deviceManager === undefined){
     throw (new Error('device manager not defined in getExecuteCommand'));
   }

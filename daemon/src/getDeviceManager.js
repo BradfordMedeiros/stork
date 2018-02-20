@@ -4,7 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const process = require('process');
 
-const loadInitialData = persistFilePath => {
+const loadInitialData = ({ shouldPersist, persistFilePath }) => {
+  if (shouldPersist !== true){
+    return { };
+  }
+
   console.warn('@todo check if all of these guys are valid slave types here.');
   const filePath = path.resolve(persistFilePath);
   try {
@@ -23,7 +27,8 @@ const getDeviceManager = (slaves, persistFilePath) => {
   if (typeof(slaves) !== 'object'){
     throw (new Error('slaves not defined as object in call to device manager'));
   }
-  const devices = loadInitialData(persistFilePath);
+  const shouldPersist = persistFilePath !== undefined;
+  const devices = loadInitialData({ persistFilePath, shouldPersist });
 
   const addDevice = (deviceType, reachabilityInfo) => {
     if (typeof(deviceType) !== 'string' || typeof(reachabilityInfo) !== 'string'){
@@ -59,8 +64,9 @@ const getDeviceManager = (slaves, persistFilePath) => {
 
   const getDevices = () => JSON.parse(JSON.stringify(devices));
 
+  const getDeviceById = id => JSON.parse(JSON.stringify(devices[id]));
+
   const persist = () => {
-    const shouldPersist = persistFilePath !== undefined;
     if (shouldPersist){
       const normalizedFilePath = path.resolve(persistFilePath);
       try {
@@ -76,6 +82,7 @@ const getDeviceManager = (slaves, persistFilePath) => {
     addDevice,
     removeDevice,
     getDevices,
+    getDeviceById,
     deviceExists,
   };
 
