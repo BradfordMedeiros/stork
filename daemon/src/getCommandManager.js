@@ -12,16 +12,28 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
     throw (new Error('CommandManager: slaves is not defined'));
   }
 
-
-  const listCommandsByDevice = deviceId => {
+  const listCommandsForDeviceById = deviceId => {
     if(typeof(deviceId) !== 'string'){
       throw (new Error('device id not defined as string'));
     }
 
     const device = deviceManager.getDeviceById(deviceId);
-    console.log('execute command for device');
-
+    const deviceType = device.type;
+    const commands = listCommandsForDevice(slaves, deviceType);
+    return commands;
   };
+  const listCommandsForDeviceByDeviceType = deviceType => {
+    if (typeof(deviceType) !== 'string'){
+      throw (new Error('device type not defined as string'));
+    }
+    if (slaves[deviceType] === undefined){
+      throw (new Error('invalid device type'));
+    }
+
+    const commands = listCommandsForDevice(slaves, deviceType);
+    return commands;
+  };
+
   const listCommandsByGroup = () => {
 
   };
@@ -37,7 +49,8 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
   };
 
   const commandManager = {
-    listCommandsByDevice,
+    listCommandsForDeviceById,
+    listCommandsForDeviceByDeviceType,
     listCommandsByGroup,
     executeCommandForDevice,
     executeCommandForGroup,

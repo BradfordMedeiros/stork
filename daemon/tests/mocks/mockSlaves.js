@@ -14,7 +14,12 @@ const mockSlaves = {
     config: async configText => {
       value = value + 1;
       return;
-    }
+    },
+    commands:  {
+      test: async () => {
+        return "ok";
+      }
+    },
   }
 };
 
