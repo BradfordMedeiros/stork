@@ -7,7 +7,8 @@ const commandCommand = args => {
     typeof(commander.d) === 'string' &&
     commander.g === undefined &&
     typeof(commander.c) === 'string' &&
-    commander.l === undefined
+    commander.l === undefined &&
+    commander.t === undefined
   ){
     return ({
       isValid: true,
@@ -21,7 +22,8 @@ const commandCommand = args => {
     typeof(commander.d) === 'string' &&
     commander.g === undefined &&
     commander.c === undefined &&
-    commander.l
+    commander.l &&
+    commander.t === undefined
   ){
     return ({
       isValid: true,
@@ -32,11 +34,28 @@ const commandCommand = args => {
       }
     });
   }
+  else if(
+    commander.d === undefined &&
+    commander.g === undefined &&
+    commander.c === undefined &&
+    commander.l &&
+    typeof(commander.t) === 'string'
+  ){
+    return ({
+      isValid: true,
+      type: 'command',
+      option:  {
+        type: 'list_by_type',
+        device: commander.t
+      }
+    });
+  }
   else if (
     commander.d === undefined &&
     typeof(commander.g) === 'string' &&
     typeof(commander.c) === 'string' &&
-    commander.l  === undefined
+    commander.l  === undefined &&
+    commander.t === undefined
   ){
       return ({
         isValid: true,
@@ -50,7 +69,8 @@ const commandCommand = args => {
     commander.d === undefined &&
     typeof(commander.g) === 'string' &&
     commander.c === undefined &&
-    commander.l
+    commander.l &&
+    commander.t === undefined
   ){
       return ({
         isValid: true,

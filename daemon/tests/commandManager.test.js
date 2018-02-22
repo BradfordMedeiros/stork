@@ -1,5 +1,5 @@
 const assert = require('assert');
-const mockSlaves = require('./mocks/mockSlaves');
+const mockSlaves = require('./mocks/mockSlave');
 const getDeviceManager = require('../src/getDeviceManager');
 const getGroupManager = require('../src/getGroupManager');
 const getCommandManager = require('../src/getCommandManager');
@@ -23,5 +23,7 @@ describe('command manager', () => {
     assert.deepEqual(commands, ['test']);
   });
 
-  it('list commands for a group');
+  it('list commands for a group for a single device type');
+  it('list commands for a group for a multiple device types');
+
 });

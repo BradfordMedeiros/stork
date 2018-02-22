@@ -1,7 +1,7 @@
 
 let value = 10;
 
-const mockSlaves = {
+const mockSlave = {
   mock_slave: {
     type: 'mock_slave',
     get_value: () => value,
@@ -23,4 +23,4 @@ const mockSlaves = {
   }
 };
 
-module.exports = mockSlaves;
+module.exports = mockSlave;

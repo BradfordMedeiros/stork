@@ -1,5 +1,8 @@
 
 const listCommandsForDevice = (slaves, deviceType) => Object.keys(slaves[deviceType].commands);
+const getUniqueDeviceTypesInGroup = ({ deviceManager, groupManager }, groupName) => {
+  throw (new Error('not yet implemented'));
+};
 
 const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
   if (deviceManager === undefined){

@@ -1,5 +1,5 @@
 const assert = require('assert');
-const mockSlaves = require('./mocks/mockSlaves');
+const mockSlaves = require('./mocks/mockSlave');
 const getDeviceManager = require('../src/getDeviceManager');
 
 

@@ -97,6 +97,35 @@ describe('expression parsing -- group commands', () => {
   });
 });
 
+describe('expression parsing -- command commands', () => {
+  it ('list available commands for a device', () => {
+    const expected = {
+      isValid: true,
+      type: 'command',
+      option:  {
+        type: 'list_device',
+        device: 'some_device_id'
+      }
+    };
+    assert.deepEqual(parseCommand('stork command -l -d some_device_id'),expected);
+  });
+
+  it ('list available commands for a device by type', () => {
+    const expected = {
+      isValid: true,
+      type: 'command',
+      option:  {
+        type: 'list_by_type',
+        device: 'test_type'
+      }
+    };
+    assert.deepEqual(parseCommand('stork command -l -t test_type'),expected);
+  });
+  it('list available commands for a group');
+  it('execute command for a device');
+  it('exeucte command for a group')
+});
+
 describe('expression parsing -- config commands',  () => {
   it('config device command');
   it('config group command');
