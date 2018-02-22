@@ -41,10 +41,23 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
 
   };
 
-  const executeCommandForDevice = deviceId => {
+  const executeCommandForDevice = async (deviceId, command) => {
+    const device = deviceManager.getDeviceById(deviceId);
+    const deviceType = device.type;
+    const deviceSlave = slaves[deviceType];
+    if (deviceSlave === undefined){
+      throw (new Error('invalid device type: ', deviceType));
+    }
 
-
-
+    const commands = deviceSlave.commands;
+    if (commands === undefined){
+      throw (new Error('no commands defined'));
+    }
+    const commandToExecute = commands[command];
+    if (commandToExecute === undefined){
+      throw (new Error('invalid command for device type'));
+    }
+    return await commandToExecute();
   };
 
   const executeCommandForGroup = () => {

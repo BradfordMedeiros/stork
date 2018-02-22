@@ -16,9 +16,7 @@ const mockSlave = {
       return;
     },
     commands:  {
-      test: async () => {
-        return "ok";
-      }
+      test: async () => "ok",
     },
   }
 };
