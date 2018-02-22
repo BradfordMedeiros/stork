@@ -15,6 +15,7 @@ const commandCommand = args => {
       type: 'command',
       option: {
         type: 'device',
+        deviceId: commander.d,
         command: commander.c,
       }
     })

@@ -22,9 +22,7 @@ const testServiceSlave = {
     });
   },
   commands: {
-    test: async () => {
-      console.log('wow');
-    }
+    test: async () => 'ok',
   },
 };
 
