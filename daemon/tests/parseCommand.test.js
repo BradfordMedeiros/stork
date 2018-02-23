@@ -109,7 +109,6 @@ describe('expression parsing -- command commands', () => {
     };
     assert.deepEqual(parseCommand('stork command -l -d some_device_id'),expected);
   });
-
   it ('list available commands for a device by type', () => {
     const expected = {
       isValid: true,

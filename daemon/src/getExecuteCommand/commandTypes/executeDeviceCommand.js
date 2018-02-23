@@ -12,7 +12,6 @@ const executeList  = deviceManager => {
 };
 
 const executeAdd = (deviceManager, deviceType, deviceReachabilityInfo) => deviceManager.addDevice(deviceType, deviceReachabilityInfo);
-
 const executeRemove = (deviceManager, deviceId) => deviceManager.removeDevice(deviceId);
 
 const executeDeviceCommand = (command, deviceManager) => {

@@ -36,11 +36,6 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
     const commands = listCommandsForDevice(slaves, deviceType);
     return commands;
   };
-
-  const listCommandsByGroup = () => {
-
-  };
-
   const executeCommandForDevice = async (deviceId, command) => {
     const device = deviceManager.getDeviceById(deviceId);
     const deviceType = device.type;
@@ -60,8 +55,14 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
     return await commandToExecute();
   };
 
-  const executeCommandForGroup = () => {
-
+  const listCommandsByGroup = group => {
+    console.log('$$/ placeholder list by group: ', group);
+  };
+  const executeCommandForGroup = async (group, command) => {
+    console.log('placeholder execute group command:');
+    console.log("group: ", group);
+    console.log("command: ", command);
+    console.log('---------------');
   };
 
   const commandManager = {
