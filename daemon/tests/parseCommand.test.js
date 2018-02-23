@@ -122,8 +122,30 @@ describe('expression parsing -- command commands', () => {
     assert.deepEqual(parseCommand('stork command -l -t test_type'),expected);
   });
   it('list available commands for a group');
-  it('execute command for a device');
-  it('exeucte command for a group')
+  it('execute command for a device', () => {
+    const expected = {
+      isValid: true,
+      type: 'command',
+      option: {
+        type: 'device',
+        deviceId: 'some_device_id',
+        command: 'some_command',
+      }
+    };
+    assert.deepEqual(parseCommand('stork command -d some_device_id -c some_command'),expected);
+  });
+  it('execute command for a group', () => {
+    const expected = {
+      isValid: true,
+      type: 'command',
+      option: {
+        type: 'group',
+        command: 'some_command',
+        group: 'some_group_name',
+      }
+    };
+    assert.deepEqual(parseCommand('stork command -g some_group_name -c some_command'),expected);
+  });
 });
 
 describe('expression parsing -- config commands',  () => {

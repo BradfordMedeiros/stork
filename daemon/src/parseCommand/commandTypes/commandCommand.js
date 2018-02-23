@@ -63,6 +63,7 @@ const commandCommand = args => {
         type: 'command',
         option: {
           type: 'group',
+          group: commander.g,
           command: commander.c,
         }
       });
