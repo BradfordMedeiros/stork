@@ -68,17 +68,21 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
   };
 
   const listCommandsByGroup = group => {
-    console.log('$$/ placeholder list by group: ', group);
     const devices = groupManager.getDevicesFromGroup(group);
     const commandArray = devices.map(listCommandsForDeviceById);
     const commonCommands = findCommonCommandsForCommandArray(commandArray);
     return commonCommands;
   };
   const executeCommandForGroup = async (group, command) => {
-    console.log('placeholder execute group command:');
-    console.log("group: ", group);
-    console.log("command: ", command);
-    console.log('---------------');
+    const commands = listCommandsByGroup(group);
+    const isValidCommand = commands.indexOf(command) >= 0;
+    if (isValidCommand !== true){
+      throw (new Error('invalid commmand for group: ' + group + ' command: ' + command));
+    }
+
+    const devices = groupManager.getDevicesFromGroup(group);
+    return await Promise.all(devices.map(deviceId => executeCommandForDevice(deviceId, command)));
+
   };
 
   const commandManager = {
