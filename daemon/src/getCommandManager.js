@@ -1,7 +1,19 @@
 
 const listCommandsForDevice = (slaves, deviceType) => Object.keys(slaves[deviceType].commands);
-const getUniqueDeviceTypesInGroup = ({ deviceManager, groupManager }, groupName) => {
-  throw (new Error('not yet implemented'));
+const findCommonCommandsForCommandArray = commandArrays => {
+  const totalDevices = commandArrays.length;
+  const commandCounts = { };
+  commandArrays.forEach(commandArray => {
+    commandArray.forEach(command => {
+      if (commandCounts[command] === undefined){
+        commandCounts[command] = 0;
+      }
+      commandCounts[command] = commandCounts[command] + 1;
+    });
+  });
+
+  const commonCommands = Object.keys(commandCounts).filter(command => commandCounts[command] === totalDevices);
+  return commonCommands;
 };
 
 const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
@@ -57,6 +69,10 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
 
   const listCommandsByGroup = group => {
     console.log('$$/ placeholder list by group: ', group);
+    const devices = groupManager.getDevicesFromGroup(group);
+    const commandArray = devices.map(listCommandsForDeviceById);
+    const commonCommands = findCommonCommandsForCommandArray(commandArray);
+    return commonCommands;
   };
   const executeCommandForGroup = async (group, command) => {
     console.log('placeholder execute group command:');
