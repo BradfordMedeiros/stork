@@ -23,7 +23,6 @@ const executeRunCommandForGroup = async (commmandManager, group, command) => {
 };
 
 const executeCommandCommand = (command,  commandManager) => {
-  console.log(command);
   if (command.option.type === 'device'){
     executeRunCommandForDevice(commandManager, command.option.deviceId, command.option.command);
   }else if (command.option.type === 'group'){
