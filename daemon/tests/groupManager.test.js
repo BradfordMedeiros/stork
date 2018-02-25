@@ -20,7 +20,24 @@ describe('group manager', () => {
     const devices = GroupManager.getDevicesFromGroup('somegroup');
     assert.equal(true, devices.indexOf('somedevice') >= 0);
   });
-  it('remove device belonging to that group');
+  it('remove device belonging to that group', () => {
+    const GroupManager = getGroupManager();
+    GroupManager.addGroup('somegroup');
+    GroupManager.addDeviceToGroup('somegroup','somedevice');
+    GroupManager.removeDeviceFromGroup('somegroup', 'somedevice');
+    const devices = GroupManager.getDevicesFromGroup('somegroup');
+    assert.equal(true, devices.indexOf('somedevice') < 0);
+  });
+  it('removed device only from that group', () => {
+    const GroupManager = getGroupManager();
+    GroupManager.addGroup('somegroup');
+    GroupManager.addGroup('anothergroup');
+    GroupManager.addDeviceToGroup('somegroup','somedevice');
+    GroupManager.addDeviceToGroup('anothergroup','somedevice');
+    GroupManager.removeDeviceFromGroup('somegroup', 'somedevice');
+    const devices = GroupManager.getDevicesFromGroup('anothergroup');
+    assert.equal(true, devices.indexOf('somedevice') >= 0);
+  });
   it('remove group', () => {
     const GroupManager = getGroupManager();
     GroupManager.addGroup('cool super awesome');
