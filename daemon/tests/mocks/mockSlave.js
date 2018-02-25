@@ -8,6 +8,14 @@ const mockSlave = {
     isValidReachabilityInfo: identification => {
       return (Number(identification) > 5);
     },
+    isValidConfig:  config => {
+      try {
+        const data = JSON.parse(config);
+        return (data.somefield === true || data.somefield == false);
+      }catch(e){
+        return false;
+      }
+    },
     status: async () => {
       return 'ok';
     },

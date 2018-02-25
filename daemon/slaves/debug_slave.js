@@ -4,6 +4,9 @@ const debugSlave = {
   isValidReachabilityInfo: identification => {
     return typeof(identification) === 'string';
   },
+  isValidConfig:  () => {
+    return true;
+  },
   status: async () => {
     await (new Promise((resolve, reject)=> {
       resolve();

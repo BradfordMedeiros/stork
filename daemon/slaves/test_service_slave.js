@@ -5,6 +5,9 @@ const testServiceSlave = {
   isValidReachabilityInfo: identification => {
     return typeof(identification) === 'string';
   },
+  isValidConfig:  () => {
+    return true;
+  },
   status: async () => {
     const data = await fetch('http://localhost:3000/status');
     return await data.text();

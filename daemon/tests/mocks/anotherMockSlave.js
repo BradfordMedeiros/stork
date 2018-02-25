@@ -8,6 +8,9 @@ const mockSlave = {
     isValidReachabilityInfo: identification => {
       return (Number(identification) > 5);
     },
+    isValidConfig:  () => {
+      return true;
+    },
     status: async () => {
       return 'ok';
     },
