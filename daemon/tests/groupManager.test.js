@@ -13,7 +13,13 @@ describe('group manager', () => {
     GroupManager.addGroup('mygroup');
     assert.equal(GroupManager.groupExists('mygroup'), true);
   });
-  it('add some device to a group');
+  it('add some device to a group', () => {
+    const GroupManager = getGroupManager();
+    GroupManager.addGroup('somegroup');
+    GroupManager.addDeviceToGroup('somegroup','somedevice');
+    const devices = GroupManager.getDevicesFromGroup('somegroup');
+    assert.equal(true, devices.indexOf('somedevice') >= 0);
+  });
   it('remove device belonging to that group');
   it('remove group', () => {
     const GroupManager = getGroupManager();
