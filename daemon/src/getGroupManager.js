@@ -63,8 +63,6 @@ const getGroupManager = persistFilePath => {
     if (groups[groupName] === undefined){
       throw (new Error('group: ' + groupName + ' does not exist'));
     }
-    console.warn('@todo check if device name exists?');
-
     if (groups[groupName].devices.indexOf(deviceId) >= 0){
       throw (new Error('device already in group'));
     }
@@ -80,8 +78,6 @@ const getGroupManager = persistFilePath => {
     if (typeof(deviceId) !== 'string'){
       throw (new Error('deviceId must be defined in call to addGroup'));
     }
-
-    console.warn('@todo check if device name exists?');
 
     if (groups[groupName].devices.indexOf(deviceId) < 0){
       throw (new Error('device not in group'));

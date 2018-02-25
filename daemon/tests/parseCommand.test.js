@@ -158,6 +158,7 @@ describe('expression parsing -- command commands', () => {
 });
 
 describe('expression parsing -- config commands',  () => {
+  it('validate config by device type command');
   it('config device command');
   it('config group command');
 });

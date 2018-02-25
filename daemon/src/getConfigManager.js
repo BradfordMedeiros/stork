@@ -16,7 +16,6 @@ const getConfigManager = ({ deviceManager, slaves }) => {
     if (device === undefined){
       throw (new Error('invalid device type'));
     }
-    console.log('@todo should probably try/catch this (and all plugin functions');
     return device.isValidConfig(config);
   };
   const configureDevice = async (deviceId, config) => {
