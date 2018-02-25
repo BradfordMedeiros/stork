@@ -8,9 +8,6 @@ const getConfigManager = ({ deviceManager, slaves }) => {
     throw (new Error('ConfigManager: slaves is not defined'));
   }
 
-  const configureDevice = (deviceId, config) => {
-    throw (new Error('not yet implemented'));
-  };
   const isValidDeviceConfiguration = (deviceType, config) => {
     if (deviceType === undefined || config === undefined){
       throw (new Error('invalid parameters'));
@@ -22,10 +19,27 @@ const getConfigManager = ({ deviceManager, slaves }) => {
     console.log('@todo should probably try/catch this (and all plugin functions');
     return device.isValidConfig(config);
   };
+  const configureDevice = async (deviceId, config) => {
+    if (deviceId === undefined || config === undefined){
+      throw (new Error('invalid parameters'));
+    }
+
+    const deviceType = deviceManager.getDeviceById(deviceId).type;
+    const isValidConfiguration = isValidDeviceConfiguration(deviceType, config);
+    if (isValidConfiguration !== true){
+      throw (new Error('invalid configuration'));
+    }
+    const device = slaves[deviceType];
+    if (device === undefined){
+      throw (new Error('invalid device'));
+    }
+    return await device.config(config);
+  };
+
 
   const configManager = {
-    configureDevice,
     isValidDeviceConfiguration,
+    configureDevice,
   };
   return configManager;
 };
