@@ -3,16 +3,18 @@ const executeDeviceCommand = require('./commandTypes/executeDeviceCommand');
 const executeGroupCommand = require('./commandTypes/executeGroupCommand');
 const executeCommandCommand = require('./commandTypes/executeCommandCommand');
 const executeConfigCommand = require('./commandTypes/executeConfigCommand');
+const executeValidateConfigCommand = require('./commandTypes/executeValidateConfigCommand');
 
 const executeWarnInvalidCommand = () => {
   console.error("Invalid command");
 };
 
 const commandTypeExecute = {
-  device: ({ command, deviceManager }) => () => executeDeviceCommand(command, deviceManager),
-  group: ({ command, groupManager }) => () => executeGroupCommand(command, groupManager),
-  command: ({ command, commandManager }) => () => executeCommandCommand(command, commandManager),
-  config: ({ command, configManager }) => () => executeConfigCommand(command, configManager),
+  'device' : ({ command, deviceManager }) => () => executeDeviceCommand(command, deviceManager),
+  'group' : ({ command, groupManager }) => () => executeGroupCommand(command, groupManager),
+  'command' : ({ command, commandManager }) => () => executeCommandCommand(command, commandManager),
+  'config' : ({ command, configManager }) => () => executeConfigCommand(command, configManager),
+  'validate-config' : ({ command, configManager }) => () => executeValidateConfigCommand(command, configManager),
 };
 
 const getExecuteCommand = ({ deviceManager, groupManager, commandManager, configManager }) => {

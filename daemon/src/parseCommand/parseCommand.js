@@ -18,16 +18,18 @@ const deviceCommand = require('./commandTypes/deviceCommand');
 const groupCommand = require('./commandTypes/groupCommand');
 const commandCommand = require('./commandTypes/commandCommand');
 const configCommand = require('./commandTypes/configCommand');
+const validateConfigCommand = require('./commandTypes/validateConfigCommand');
 
 const invalidCommand = () => ({
   isValid: false,
 });
 
 const commands = {
-  device: deviceCommand,
-  group: groupCommand,
-  command: commandCommand,
-  config: configCommand,
+  'device' : deviceCommand,
+  'group' : groupCommand,
+  'command' : commandCommand,
+  'config' : configCommand,
+  'validate-config': validateConfigCommand,
 };
 
 const parseCommand = commandString => {
