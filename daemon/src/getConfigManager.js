@@ -25,6 +25,7 @@ const getConfigManager = ({ deviceManager, slaves }) => {
 
     const deviceType = deviceManager.getDeviceById(deviceId).type;
     const isValidConfiguration = isValidDeviceConfiguration(deviceType, config);
+
     if (isValidConfiguration !== true){
       throw (new Error('invalid configuration'));
     }

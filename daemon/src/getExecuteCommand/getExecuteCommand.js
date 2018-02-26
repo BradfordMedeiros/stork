@@ -38,6 +38,7 @@ const getExecuteCommand = ({ deviceManager, groupManager, commandManager, config
         deviceManager,
         groupManager,
         commandManager,
+        configManager,
       });
       if (executeCommand === undefined){
         throw (new Error('execute command not found for ' + commandObject.type));
