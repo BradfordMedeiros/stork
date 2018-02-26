@@ -2,6 +2,7 @@
 const executeDeviceCommand = require('./commandTypes/executeDeviceCommand');
 const executeGroupCommand = require('./commandTypes/executeGroupCommand');
 const executeCommandCommand = require('./commandTypes/executeCommandCommand');
+const executeConfigCommand = require('./commandTypes/executeConfigCommand');
 
 const executeWarnInvalidCommand = () => {
   console.error("Invalid command");
@@ -11,9 +12,10 @@ const commandTypeExecute = {
   device: ({ command, deviceManager }) => () => executeDeviceCommand(command, deviceManager),
   group: ({ command, groupManager }) => () => executeGroupCommand(command, groupManager),
   command: ({ command, commandManager }) => () => executeCommandCommand(command, commandManager),
+  config: ({ command, configManager }) => () => executeConfigCommand(command, configManager),
 };
 
-const getExecuteCommand = ({ deviceManager, groupManager, commandManager }) => {
+const getExecuteCommand = ({ deviceManager, groupManager, commandManager, configManager }) => {
   if (deviceManager === undefined){
     throw (new Error('device manager not defined in getExecuteCommand'));
   }
@@ -22,6 +24,9 @@ const getExecuteCommand = ({ deviceManager, groupManager, commandManager }) => {
   }
   if (commandManager ===  undefined){
     throw (new Error('command manager not defined in getExecuteCommand'));
+  }
+  if (configManager === undefined){
+    throw (new Error('config manager not defined in getExecuteCommand'));
   }
 
   const executeCommand = commandObject => {

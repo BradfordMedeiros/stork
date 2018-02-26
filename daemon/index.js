@@ -34,7 +34,7 @@ const groupManager = getGroupManager('./persistData/savedGroups');
 const commandManager = getCommandManager({ deviceManager, groupManager, slaves });
 const configManager = getConfigManager({ deviceManager, slaves });
 
-const executeCommand = getExecuteCommand({ deviceManager, groupManager, commandManager });
+const executeCommand = getExecuteCommand({ deviceManager, groupManager, commandManager, configManager });
 
 const commandString = process.argv.slice(1).join(' ');
 const command = parseCommand(commandString);
