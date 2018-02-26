@@ -3,22 +3,37 @@ const minimist = require('minimist');
 const configCommand = args => {
   const commander = minimist(args);
 
-  /*if (
+  if (
     typeof(commander.d) === 'string' &&
     commander.g === undefined &&
     typeof(commander.c) === 'string' &&
-    commander.l === undefined &&
-    commander.t === undefined
+    commander.f === undefined
   ){
     return ({
       isValid: true,
-      type: 'command',
+      type: 'config',
       option: {
-        type: 'list_group',
-        group: commander.g,
+        type: 'config_device_by_text',
+        device: commander.d,
+        config: commander.c,
       }
     });
-  }*/
+  }else if(
+    typeof(commander.d) === 'string' &&
+    commander.g === undefined &&
+    commander.c === undefined &&
+    typeof(commander.f) === 'string'
+  ) {
+    return ({
+      isValid: true,
+      type: 'config',
+      option: {
+        type: 'config_device_by_file',
+        device: commander.d,
+        file: commander.f,
+      }
+    });
+  }
 
   return ({
     isValid: false,

@@ -158,9 +158,32 @@ describe('expression parsing -- command commands', () => {
 });
 
 describe('expression parsing -- config commands',  () => {
-  it('validate config by device type command');
-  it('config device command');
-  it('config group command');
+  it('config device command by text', () => {
+    const expected = {
+      isValid: true,
+      type: 'config',
+      option: {
+        type: 'config_device_by_text',
+        device: 'some_device_id',
+        config: 'some_config_data',
+      }
+    };
+    assert.deepEqual(parseCommand('stork config -d some_device_id -c some_config_data'), expected);
+  });
+  it('config device by file', () => {
+    const expected = {
+      isValid: true,
+      type: 'config',
+      option: {
+        type: 'config_device_by_file',
+        device: 'some_device_id',
+        file: 'some_config_file',
+      }
+    };
+    assert.deepEqual(parseCommand('stork config -d some_device_id -f some_config_file'), expected);
+  });
+  it('config group command by text');
+  it('config group by file');
 });
 
 describe('expression parsing -- status command', () => {
