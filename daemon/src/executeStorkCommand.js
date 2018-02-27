@@ -1,10 +1,10 @@
-const loadSlaves = require('./src/loadSlaves');
-const getDeviceManager = require('./src/getDeviceManager');
-const getGroupManager = require('./src/getGroupManager');
-const getCommandManager = require('./src/getCommandManager');
-const getConfigManager = require('./src/getConfigManager');
-const getExecuteCommand = require('./src/getExecuteCommand/getExecuteCommand');
-const parseCommand = require('./src/parseCommand/parseCommand');
+const loadSlaves = require('./util/loadSlaves');
+const getDeviceManager = require('./util/managers/getDeviceManager');
+const getGroupManager = require('./util/managers/getGroupManager');
+const getCommandManager = require('./util/managers/getCommandManager');
+const getConfigManager = require('./util/managers/getConfigManager');
+const getExecuteCommand = require('./util/getExecuteCommand/getExecuteCommand');
+const parseCommand = require('./util/parseCommand/parseCommand');
 
 const executeCommand  = commandString => {
   const slaves = loadSlaves('./slaves');

@@ -1,5 +1,5 @@
 const assert = require('assert');
-const getGroupManager = require('../src/getGroupManager');
+const getGroupManager = require('../src/util/managers/getGroupManager');
 
 describe('group manager', () => {
   it('add group', () => {

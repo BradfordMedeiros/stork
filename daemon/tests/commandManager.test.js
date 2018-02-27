@@ -1,8 +1,8 @@
 const assert = require('assert');
 const mockSlaves = require('./mocks/mockSlave');
-const getDeviceManager = require('../src/getDeviceManager');
-const getGroupManager = require('../src/getGroupManager');
-const getCommandManager = require('../src/getCommandManager');
+const getDeviceManager = require('../src/util/managers/getDeviceManager');
+const getGroupManager = require('../src/util/managers/getGroupManager');
+const getCommandManager = require('../src/util/managers/getCommandManager');
 
 describe('command manager', () => {
   it('list commands for a device by id', () => {

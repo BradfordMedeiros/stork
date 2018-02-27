@@ -1,5 +1,5 @@
 const assert = require('assert');
-const parseCommand = require('../src/parseCommand/parseCommand');
+const parseCommand = require('../src/util/parseCommand/parseCommand');
 
 describe('expression parsing -- device commands', () => {
   it('device list command', () => {
