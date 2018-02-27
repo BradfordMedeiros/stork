@@ -192,10 +192,34 @@ describe('expression parsing -- status command', () => {
 });
 
 describe('expression parsing -- validate config', () => {
-  it('validate config for device');
-  it('validate config for group');
-  it('validate config by text');
-  it('validate config by file');
+  it('validate config for device', () => {
+    const expected = {
+      isValid: true,
+      type: 'validate-config',
+      option: {
+        type: 'config_device_by_text',
+        device: 'some_device_id',
+        config: 'some_config_text',
+      }
+    };
+
+    assert.deepEqual(parseCommand('stork validate-config -d some_device_id -c some_config_text'), expected);
+  });
+  it('validate config for device by file', () => {
+    const expected = {
+      isValid: true,
+      type: 'validate-config',
+      option: {
+        type: 'config_device_by_file',
+        device: 'some_device_id',
+        file: 'some_config_file',
+      }
+    };
+
+    assert.deepEqual(parseCommand('stork validate-config -d some_device_id -f some_config_file'), expected);
+  });
+  it('validate config for group by text');
+  it('validate config for group by file');
 });
 
 describe('expression parsing -- invalid commands', () => {
