@@ -1,8 +1,8 @@
 
 
-const executeValidateConfigForDeviceByText = () => {
-  console.log('validate config for device by text');
-  throw (new Error('not yet implemented'));
+const executeValidateConfigForDeviceByText = async (configManager, deviceId, config) => {
+  const isValid =  await configManager.isValidDeviceConfiguration(deviceId, config);
+  console.log('Is valid: ', isValid);
 };
 const executeConfigDeviceByConfigFile = (configManager, deviceId, filename) => {
   console.log('config device by file');

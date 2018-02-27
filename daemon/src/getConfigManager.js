@@ -8,10 +8,11 @@ const getConfigManager = ({ deviceManager, slaves }) => {
     throw (new Error('ConfigManager: slaves is not defined'));
   }
 
-  const isValidDeviceConfiguration = (deviceType, config) => {
-    if (deviceType === undefined || config === undefined){
+  const isValidDeviceConfiguration = (deviceId, config) => {
+    if (deviceId=== undefined || config === undefined){
       throw (new Error('invalid parameters'));
     }
+    const deviceType = deviceManager.getDeviceById(deviceId).type;
     const device = slaves[deviceType];
     if (device === undefined){
       throw (new Error('invalid device type'));

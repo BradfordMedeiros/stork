@@ -7,7 +7,7 @@ const validateConfigCommand = args => {
   if (
     typeof(commander.d) === 'string' &&
     commander.g === undefined &&
-    typeof(commander.c) === 'string' &&
+    commander.c &&
     commander.f === undefined
   ){
     return ({
@@ -16,7 +16,7 @@ const validateConfigCommand = args => {
       option: {
         type: 'config_device_by_text',
         device: commander.d,
-        config: commander.c,
+        config: String(commander.c),
       }
     });
   }else if(

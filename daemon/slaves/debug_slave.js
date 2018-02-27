@@ -4,7 +4,7 @@ const debugSlave = {
   isValidReachabilityInfo: identification => {
     return typeof(identification) === 'string';
   },
-  isValidConfig:  () => {
+  isValidConfig:  config => {
     return true;
   },
   status: async () => {

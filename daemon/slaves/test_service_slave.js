@@ -5,8 +5,9 @@ const testServiceSlave = {
   isValidReachabilityInfo: identification => {
     return typeof(identification) === 'string';
   },
-  isValidConfig:  () => {
-    return true;
+  isValidConfig:  (config) => {
+    const isNumber = Number.isInteger(Number(config));
+    return isNumber === false;
   },
   status: async () => {
     const data = await fetch('http://localhost:3000/status');
