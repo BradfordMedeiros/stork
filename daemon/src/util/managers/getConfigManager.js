@@ -23,13 +23,12 @@ const getConfigManager = ({ deviceManager, slaves }) => {
     if (deviceId === undefined || config === undefined){
       throw (new Error('invalid parameters'));
     }
-
-    const deviceType = deviceManager.getDeviceById(deviceId).type;
-    const isValidConfiguration = isValidDeviceConfiguration(deviceType, config);
+    const isValidConfiguration = isValidDeviceConfiguration(deviceId, config);
 
     if (isValidConfiguration !== true){
       throw (new Error('invalid configuration'));
     }
+    const deviceType = deviceManager.getDeviceById(deviceId).type;
     const device = slaves[deviceType];
     if (device === undefined){
       throw (new Error('invalid device'));

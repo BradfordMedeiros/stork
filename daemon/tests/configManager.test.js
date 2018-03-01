@@ -7,10 +7,11 @@ describe('config manager', () => {
   it('can determine if a configuration is valid for a device type', () => {
     const deviceManager = getDeviceManager(mockSlaves);
     const configManager = getConfigManager({ deviceManager, slaves: mockSlaves });
+    const deviceId = deviceManager.addDevice('mock_slave', '500');
 
     // mock slave needs json object, and just checks for somefield to be defined
-    assert.equal(true, configManager.isValidDeviceConfiguration('mock_slave', '{ "somefield": true }'));
-    assert.equal(false, configManager.isValidDeviceConfiguration('mock_slave', 'invalid config'));
+    assert.equal(true, configManager.isValidDeviceConfiguration(deviceId, '{ "somefield": true }'));
+    assert.equal(false, configManager.isValidDeviceConfiguration(deviceId, 'invalid config'));
   });
   it('can configure a device', async () => {
     const deviceManager = getDeviceManager(mockSlaves);

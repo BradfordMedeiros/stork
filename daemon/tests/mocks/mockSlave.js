@@ -25,7 +25,7 @@ const mockSlave = {
     },
     config: async configText => {
       value = value + 1;
-      return;
+      return true;
     },
     commands:  {
       test: async () => "ok",
