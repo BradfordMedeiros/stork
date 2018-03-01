@@ -1,10 +1,14 @@
 
 let value = 10;
+let status = 'ok';
 
 const mockSlave = {
   mock_slave: {
     type: 'mock_slave',
     get_value: () => value,
+    change_status: newStatus => {
+      status = newStatus;
+    },
     isValidReachabilityInfo: identification => {
       return (Number(identification) > 5);
     },
@@ -17,7 +21,7 @@ const mockSlave = {
       }
     },
     status: async () => {
-      return 'ok';
+      return status;
     },
     config: async configText => {
       value = value + 1;
