@@ -9,9 +9,9 @@ LOGFILE="/var/log/${NAME}.log"
 DAEMON="/usr/local/bin/node"  # this should be replaced by a packaged binary
 
 # Path of your node script
-DAEMON_OPTS="/opt/storkd/index.js"
+DAEMON_OPTS="/opt/storkd/daemon/index.js"
 
-START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} -d /opt/storkd --exec ${DAEMON} ${DAEMON_OPTS}"
+START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} -d /opt/storkd/daemon --exec ${DAEMON} ${DAEMON_OPTS}"
 STOP_OPTS="--stop --pidfile ${PIDFILE}"
 
 test -x $DAEMON || exit 0
