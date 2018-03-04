@@ -41,7 +41,7 @@ app.post('/topic', (req, res) => {
 
 });
 
-const PORT = configManager.getWebserverPort();
+const PORT = 4002;
 
 app.listen(PORT, () => {
   console.log('listening on port: ', PORT);

@@ -3,7 +3,7 @@ const fs =  require('fs');
 const path = require('path');
 
 const defaultConfigData = {
-  notifyTopic: 'actions/linux/notify',
+  notifyTopic: "actions/linux_desktop/notify",
 };
 
 const loadData = persistFilePath => {
