@@ -13,8 +13,6 @@ const { changeTopic, end } = createMqttConnection({
   initialTopic: configManager.getTopic(),
   additionalTopics: [XDGOPEN_TOPIC],
   onMessage: ( topic, message) => {
-  console.log('topic: ', topic.toString());
-  console.log('message: ', message.toString());
   if (topic.toString() === configManager.getTopic()){
     commands.notify(message.toString());
   }else if (topic.toString() === XDGOPEN_TOPIC){
