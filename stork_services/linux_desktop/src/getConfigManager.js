@@ -3,9 +3,7 @@ const fs =  require('fs');
 const path = require('path');
 
 const defaultConfigData = {
-  mqttUrl: 'http://127.0.0.1',
   notifyTopic: 'actions/linux/notify',
-  webserverPort: 4002,
 };
 
 const loadData = persistFilePath => {
@@ -30,23 +28,11 @@ const getConfigManager = persistFilePath => {
   const config = loadData(persistFilePath);
 
   const configManager = {
-      getMqttUrl : () => config.mqttUrl,
-      setMqttUrl : url => {
-        config.mqttUrl = url;
-        persistData(persistFilePath, config);
-      },
-
       getTopic: () => config.notifyTopic,
       setNotifyTopic: topic => {
         config.notifyTopic = topic;
         persistData(persistFilePath, config);
       },
-
-      getWebserverPort: () => config.webserverPort,
-      setWebserverPort: port => {
-        config.webserverPort = port;
-        persistData(persistFilePath, config);
-      }
   };
 
   return configManager;
