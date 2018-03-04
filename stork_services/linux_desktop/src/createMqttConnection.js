@@ -1,11 +1,11 @@
 const mqtt = require('mqtt');
 
-const createMqttConnection = ({ initialTopic, onMessage }) => {
+const createMqttConnection = ({ initialTopic, additionalTopics,  onMessage }) => {
   let oldTopic = initialTopic;
   const client  = mqtt.connect('mqtt://127.0.0.1:1883');
 
   client.on('connect', function () {
-    client.subscribe(initialTopic)
+    client.subscribe([initialTopic].concat(additionalTopics));
   });
 
   client.on('message', onMessage);

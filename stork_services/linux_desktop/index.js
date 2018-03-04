@@ -2,19 +2,25 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const getConfigManager = require('./src/getConfigManager');
 const createMqttConnection = require('./src/createMqttConnection');
-const notifier = require('node-notifier');
+const commands = require('./src/commands');
 
 const app = express();
 
 const configManager = getConfigManager('./persist/config');
+const XDGOPEN_TOPIC = 'actions/linux_desktop/open';
 
-const { changeTopic, end } = createMqttConnection({ initialTopic: configManager.getTopic(), onMessage: ( topic, message) => {
+const { changeTopic, end } = createMqttConnection({
+  initialTopic: configManager.getTopic(),
+  additionalTopics: [XDGOPEN_TOPIC],
+  onMessage: ( topic, message) => {
   console.log('topic: ', topic.toString());
   console.log('message: ', message.toString());
-  notifier.notify({
-    title: 'Automate notification',
-    message: message.toString(),
-  });
+  if (topic.toString() === configManager.getTopic()){
+    commands.notify(message.toString());
+  }else if (topic.toString() === XDGOPEN_TOPIC){
+    commands.tryOpen(message.toString());
+  }
+
 }});
 
 
@@ -32,6 +38,12 @@ app.post('/topic', (req, res) => {
     return;
   }
   const notifyTopic = req.body.topic;
+
+  if (notifyTopic === XDGOPEN_TOPIC){
+    res.jsonp({ error: 'reserved topic'});
+    return;
+  }
+
   configManager.setNotifyTopic(notifyTopic);
   changeTopic(configManager.getTopic()).then(() => {
     res.send('ok');
