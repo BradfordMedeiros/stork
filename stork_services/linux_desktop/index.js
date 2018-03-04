@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const getConfigManager = require('./util/getConfigManager');
-const createMqttConnection = require('./util/createMqttConnection');
+const getConfigManager = require('./src/getConfigManager');
+const createMqttConnection = require('./src/createMqttConnection');
 const notifier = require('node-notifier');
 
 const app = express();
