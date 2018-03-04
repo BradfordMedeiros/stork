@@ -1,10 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const getConfigManager = require('./util/getConfigManager');
+const createMqttConnection = require('./util/createMqttConnection');
+const notifier = require('node-notifier');
 
 const app = express();
 
 const configManager = getConfigManager('./persist/config');
+
+const { changeTopic, end } = createMqttConnection({ initialTopic: configManager.getTopic(), onMessage: ( topic, message) => {
+  console.log('topic: ', topic.toString());
+  console.log('message: ', message.toString());
+  notifier.notify({
+    title: 'Automate notification',
+    message: message.toString(),
+  });
+}});
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
@@ -21,8 +33,12 @@ app.post('/topic', (req, res) => {
   }
   const notifyTopic = req.body.topic;
   configManager.setNotifyTopic(notifyTopic);
+  changeTopic(configManager.getTopic()).then(() => {
+    res.send('ok');
+  }).catch(err => {
+    res.jsonp({ error: err });
+  });
 
-  res.send('ok');
 });
 
 const PORT = configManager.getWebserverPort();
@@ -30,6 +46,7 @@ const PORT = configManager.getWebserverPort();
 app.listen(PORT, () => {
   console.log('listening on port: ', PORT);
 });
+
 
 
 
