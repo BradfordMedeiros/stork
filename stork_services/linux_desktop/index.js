@@ -1,12 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const process = require('process');
+const path = require('path');
 const getConfigManager = require('./src/getConfigManager');
 const createMqttConnection = require('./src/createMqttConnection');
 const commands = require('./src/commands');
 
 const app = express();
 
-const configManager = getConfigManager('./persist/config');
+const PERSIST_PATH = path.resolve(process.env.HOME, '.stork-desktop.config')
+const configManager = getConfigManager(PERSIST_PATH);
 const XDGOPEN_TOPIC = 'actions/linux_desktop/open';
 
 const { changeTopic, end } = createMqttConnection({

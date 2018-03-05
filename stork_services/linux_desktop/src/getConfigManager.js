@@ -17,7 +17,7 @@ const loadData = persistFilePath => {
   }
 };
 const persistData = (persistFilePath, config) => {
-  fs.writeFileSync(persistFilePath, JSON.stringify(config));
+  fs.writeFileSync(path.resolve(persistFilePath), JSON.stringify(config));
 };
 
 const getConfigManager = persistFilePath => {
