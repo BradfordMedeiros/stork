@@ -4,6 +4,7 @@ const path = require('path');
 
 const defaultConfigData = {
   notifyTopic: "actions/linux_desktop/notify",
+  mqttUrl: 'mqtt://127.0.0.1:1883',
 };
 
 const loadData = persistFilePath => {
@@ -32,9 +33,15 @@ const getConfigManager = persistFilePath => {
       setNotifyTopic: topic => {
         config.notifyTopic = topic;
         persistData(persistFilePath, config);
+        console.log('changed notify topic: ', topic);
       },
+      getMqttUrl: () => config.mqttUrl,
+      setMqttUrl: mqttUrl => {
+        config.mqttUrl = mqttUrl;
+        persistData(persistFilePath, config);
+        console.log('change mqtt url: ', mqttUrl);
+      }
   };
-
   return configManager;
 };
 

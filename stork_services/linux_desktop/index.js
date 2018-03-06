@@ -12,8 +12,9 @@ const PERSIST_PATH = path.resolve(process.env.HOME, '.stork-desktop.config')
 const configManager = getConfigManager(PERSIST_PATH);
 const XDGOPEN_TOPIC = 'actions/linux_desktop/open';
 
-const { changeTopic, end } = createMqttConnection({
+const { changeTopic, changeMqttBroker, end } = createMqttConnection({
   initialTopic: configManager.getTopic(),
+  mqttUrl: configManager.getMqttUrl(),
   additionalTopics: [XDGOPEN_TOPIC],
   onMessage: ( topic, message) => {
   if (topic.toString() === configManager.getTopic()){
@@ -21,7 +22,6 @@ const { changeTopic, end } = createMqttConnection({
   }else if (topic.toString() === XDGOPEN_TOPIC){
     commands.tryOpen(message.toString());
   }
-
 }});
 
 
@@ -32,7 +32,6 @@ app.use(bodyParser.text({ type: 'text/html' }));
 app.get('/topic', (req, res) => {
   res.send(configManager.getTopic());
 });
-
 app.post('/topic', (req, res) => {
   if (!req.body || typeof(req.body.topic) !== 'string'){
     res.status(400).jsonp({ error: 'bad params' });
@@ -51,8 +50,23 @@ app.post('/topic', (req, res) => {
   }).catch(err => {
     res.jsonp({ error: err });
   });
-
 });
+
+app.get('/mqtt_url', (req, res) => { res.send(configManager.getMqttUrl()) });
+app.post('/mqtt_url', (req, res) => {
+  if (!req.body || typeof(req.body.mqttUrl) !== 'string'){
+    res.status(400).jsonp({ error: 'bad params' });
+    return;
+  }
+  console.log('wants to change to: ', req.body.mqttUrl);
+  changeMqttBroker(req.body.mqttUrl).then(() => {
+    configManager.setMqttUrl(req.body.mqttUrl);
+    res.send('ok');
+  }).catch(() => {
+    res.send('placeholder for mqtt url');
+  });
+});
+
 
 const PORT = 4002;
 

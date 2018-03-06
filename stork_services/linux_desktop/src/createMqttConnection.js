@@ -1,23 +1,33 @@
 const mqtt = require('mqtt');
 
-const createMqttConnection = ({ initialTopic, additionalTopics,  onMessage }) => {
+const onMqttConnected = (client, topics) => () => {
+  console.log('mqtt connected');
+  client.subscribe(topics);
+  console.log('subscribing to: ', topics);
+};
+
+const createMqttConnection = ({ initialTopic, additionalTopics,  onMessage, mqttUrl }) => {
   let oldTopic = initialTopic;
-  const client  = mqtt.connect('mqtt://127.0.0.1:1883');
+  let client  = mqtt.connect(mqttUrl);
+  console.log('mqtt url: ', mqttUrl);
 
-  client.on('connect', function () {
-    client.subscribe([initialTopic].concat(additionalTopics));
-  });
-
+  client.on('connect', onMqttConnected(client, [oldTopic].concat(additionalTopics)));
   client.on('message', onMessage);
   return ({
     end: () => client.end(),
+    changeMqttBroker: newMqttUrl => new Promise((resolve, reject) => {
+      client.end();
+      client = mqtt.connect(newMqttUrl);
+      client.on('connect', onMqttConnected(client, [oldTopic].concat(additionalTopics)));
+      client.on('message', onMessage);
+      resolve();
+    }),
     changeTopic: topic => {
       console.log('changing topic to : ', topic);
       if (typeof(topic) !== 'string'){
         throw (new Error('topic must be string'));
       }
 
-      // this is bad, we should rely on the callbacks instead
       return new Promise((resolve, reject) => {
         client.unsubscribe(oldTopic, err => {
           if (err){
@@ -28,6 +38,7 @@ const createMqttConnection = ({ initialTopic, additionalTopics,  onMessage }) =>
           client.subscribe(topic, err  =>{
             if  (err){
               console.error(err);
+              oldTopic = topic;
               reject({ error: 'sub'})
               return;
             }
