@@ -28,12 +28,16 @@ const getConfigManager = ({ deviceManager, slaves }) => {
     if (isValidConfiguration !== true){
       throw (new Error('invalid configuration'));
     }
-    const deviceType = deviceManager.getDeviceById(deviceId).type;
-    const device = slaves[deviceType];
+
+    const device = deviceManager.getDeviceById(deviceId);
+    const deviceType = device.type;
+    const reachabilityInfo = device.info;
+
+    const deviceTypeInstance = slaves[deviceType];
     if (device === undefined){
       throw (new Error('invalid device'));
     }
-    return await device.config(config);
+    return await deviceTypeInstance.config(config, reachabilityInfo);
   };
 
 

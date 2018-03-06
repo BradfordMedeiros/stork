@@ -24,13 +24,15 @@ const linuxDesktop = {
     }));
     return "ok";
   },
-  config: async configText => {
+  config: async (configText, reachabilityInfo) => {
+    console.log('config reachability info: ', reachabilityInfo);
 
     const config = JSON.parse(configText);
     const notifyTopic = config.notify_topic;
     console.log('notify topic: ', notifyTopic)
     assert(notifyTopic !== undefined, 'notify topic undefined');
-    await fetch('http://localhost:4002/topic', {
+    console.log('reach info: ', reachabilityInfo);
+    await fetch(`${reachabilityInfo}/topic`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
