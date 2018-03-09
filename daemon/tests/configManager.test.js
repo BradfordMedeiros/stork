@@ -6,7 +6,7 @@ const getConfigManager = require('../src/util/managers/getConfigManager');
 describe('config manager', () => {
   it('can determine if a configuration is valid for a device type', () => {
     const deviceManager = getDeviceManager(mockSlaves);
-    const configManager = getConfigManager({ deviceManager, slaves: mockSlaves });
+    const configManager = getConfigManager({ deviceManager, getSlaves: () => mockSlaves });
     const deviceId = deviceManager.addDevice('mock_slave', '500');
 
     // mock slave needs json object, and just checks for somefield to be defined
@@ -15,7 +15,7 @@ describe('config manager', () => {
   });
   it('can configure a device', async () => {
     const deviceManager = getDeviceManager(mockSlaves);
-    const configManager = getConfigManager({ deviceManager, slaves: mockSlaves });
+    const configManager = getConfigManager({ deviceManager, getSlaves: () => mockSlaves });
     const deviceId = deviceManager.addDevice('mock_slave', '500');
 
     let hasErrored = false;
@@ -28,7 +28,7 @@ describe('config manager', () => {
   });
   it('will fail to configure a device is the config is invalid', async () => {
     const deviceManager = getDeviceManager(mockSlaves);
-    const configManager = getConfigManager({ deviceManager, slaves: mockSlaves });
+    const configManager = getConfigManager({ deviceManager, getSlaves: () => mockSlaves });
     const deviceId = deviceManager.addDevice('mock_slave', '500');
 
     let hasErrored = false;

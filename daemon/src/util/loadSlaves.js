@@ -13,7 +13,15 @@ const loadSlaves =  slaveFolder => {
     slaveObject[slave.type] = slave;
   });
 
-  return slaveObject;
+  return ({
+    getSlaves:  () => slaveObject,
+    loadSlave: slaveName => {
+      throw (new Error('load slave not yet implemented'));
+    },
+    unloadSlave: slaveName => {
+      throw (new Error('unload slave not yet implemented'));
+    },
+  });
 };
 
 module.exports = loadSlaves;

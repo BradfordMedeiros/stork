@@ -1,17 +1,19 @@
 
 
-const executeAddPlugin = async () => {
+const executeAddPlugin = async loadSlave => {
+  loadSlave();
   return 'add plugin: not yet implemented';
 };
-const executeRemovePlugin = async () => {
+const executeRemovePlugin = async unloadSlave => {
+  unloadSlave();
   return 'remove plugin: not yet implemented';
 };
 
-const executePluginCommand = async (command) => {
+const executePluginCommand = async (command, loadSlave, unloadSlave) => {
   if (command.option.type === 'add'){
-    return await executeAddPlugin();
+    return await executeAddPlugin(loadSlave);
   }else if (command.option.type === 'remove'){
-    return await executeRemovePlugin();
+    return await executeRemovePlugin(unloadSlave);
   }
 };
 
