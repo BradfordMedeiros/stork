@@ -1,26 +1,34 @@
 
 const executeList  = deviceManager => {
-  console.log('Stork Devices');
-  console.log('--------------------');
+
+  let response = 'Stork Devices\n';
+  response = response.concat('--------------------\n');
   const devices = deviceManager.getDevices();
 
   if (Object.keys(devices).length === 0){
-    console.log('no devices\n');
+    response = response.concat('no devices\n');
   }else {
-    console.log(devices);
+    response = response.concat(JSON.stringify(devices));
   }
+  return response;
 };
 
-const executeAdd = (deviceManager, deviceType, deviceReachabilityInfo) => deviceManager.addDevice(deviceType, deviceReachabilityInfo);
-const executeRemove = (deviceManager, deviceId) => deviceManager.removeDevice(deviceId);
+const executeAdd = (deviceManager, deviceType, deviceReachabilityInfo) => {
+  deviceManager.addDevice(deviceType, deviceReachabilityInfo);
+  return 'ok';
+};
+const executeRemove = (deviceManager, deviceId) => {
+  deviceManager.removeDevice(deviceId);
+  return 'ok';
+};
 
-const executeDeviceCommand = (command, deviceManager) => {
+const executeDeviceCommand = async (command, deviceManager) => {
   if (command.option.type === 'list'){
-    executeList(deviceManager);
+    return executeList(deviceManager);
   }else if (command.option.type === 'add'){
-    executeAdd(deviceManager, command.option.name, command.option.reach);
+    return executeAdd(deviceManager, command.option.name, command.option.reach);
   }else if (command.option.type === 'delete'){
-    executeRemove(deviceManager, command.option.id);
+    return executeRemove(deviceManager, command.option.id);
   }
 };
 

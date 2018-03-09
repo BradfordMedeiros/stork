@@ -44,7 +44,12 @@ const linuxDesktop = {
     })
   },
   commands: {
-
+    xdg_open: () => {
+      console.log('not yet implemented');
+    },
+    test: () => {
+      return 'test successful';
+    },
   },
 };
 

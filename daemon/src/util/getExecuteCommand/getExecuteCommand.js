@@ -5,9 +5,7 @@ const executeCommandCommand = require('./commandTypes/executeCommandCommand');
 const executeConfigCommand = require('./commandTypes/executeConfigCommand');
 const executeValidateConfigCommand = require('./commandTypes/executeValidateConfigCommand');
 
-const executeWarnInvalidCommand = () => {
-  console.error("Invalid command");
-};
+const executeWarnInvalidCommand = () => 'Invalid command';
 
 const commandTypeExecute = {
   'device' : ({ command, deviceManager }) => () => executeDeviceCommand(command, deviceManager),
@@ -31,9 +29,9 @@ const getExecuteCommand = ({ deviceManager, groupManager, commandManager, config
     throw (new Error('config manager not defined in getExecuteCommand'));
   }
 
-  const executeCommand = commandObject => {
+  const executeCommand = async commandObject => {
     if (commandObject.isValid !== true) {
-      executeWarnInvalidCommand();
+      return executeWarnInvalidCommand();
     } else {
       const runCommand = commandTypeExecute[commandObject.type]({
         command: commandObject,
@@ -45,7 +43,7 @@ const getExecuteCommand = ({ deviceManager, groupManager, commandManager, config
       if (executeCommand === undefined){
         throw (new Error('execute command not found for ' + commandObject.type));
       }
-      runCommand();
+      return await runCommand();
     }
   };
 
