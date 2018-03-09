@@ -19,6 +19,7 @@ const groupCommand = require('./commandTypes/groupCommand');
 const commandCommand = require('./commandTypes/commandCommand');
 const configCommand = require('./commandTypes/configCommand');
 const validateConfigCommand = require('./commandTypes/validateConfigCommand');
+const pluginCommand = require('./commandTypes/pluginCommand');
 
 const invalidCommand = () => ({
   isValid: false,
@@ -30,6 +31,8 @@ const commands = {
   'command' : commandCommand,
   'config' : configCommand,
   'validate-config': validateConfigCommand,
+  'plugin': pluginCommand,
+
 };
 
 const parseCommand = commandString => {

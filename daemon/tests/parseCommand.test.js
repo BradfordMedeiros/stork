@@ -222,6 +222,35 @@ describe('expression parsing -- validate config', () => {
   it('validate config for group by file');
 });
 
+
+describe ('expression parsing -- plugins', () => {
+  it('add a plugin', () => {
+    const expected = {
+      isValid: true,
+      type: 'plugin',
+      option: {
+        type: 'add',
+        path: './somefile',
+      }
+    };
+
+    assert.deepEqual(parseCommand('stork plugin -a ./somefile'), expected);
+  });
+  it('remove a plugin', () => {
+    const expected = {
+      isValid: true,
+      type: 'plugin',
+      option: {
+        type: 'remove',
+        path: './somefile',
+      }
+    };
+
+    assert.deepEqual(parseCommand('stork plugin -r ./somefile'), expected);
+  });
+  it('force remove plugin option');
+});
+
 describe('expression parsing -- invalid commands', () => {
   it('invalid command 1');
 });

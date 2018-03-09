@@ -1,7 +1,6 @@
 const minimist = require('minimist');
 
 const validateConfigCommand = args => {
-  console.log('validate config --');
   const commander = minimist(args);
 
   if (
