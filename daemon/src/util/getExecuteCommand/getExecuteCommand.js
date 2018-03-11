@@ -15,6 +15,10 @@ const commandTypeExecute = {
   'config' : ({ command, configManager }) => () => executeConfigCommand(command, configManager),
   'validate-config' : ({ command, configManager }) => () => executeValidateConfigCommand(command, configManager),
   'plugin' : ({ command, loadSlave, unloadSlave }) => () => executePluginCommand(command, loadSlave, unloadSlave),
+  'status' : ({ command }) => () => {
+    console.log('command is: ', command);
+    return 'status placeholder';
+  }
 };
 
 const getExecuteCommand = ({ deviceManager, groupManager, commandManager, configManager, loadSlave, unloadSlave }) => {
@@ -41,6 +45,8 @@ const getExecuteCommand = ({ deviceManager, groupManager, commandManager, config
     if (commandObject.isValid !== true) {
       return executeWarnInvalidCommand();
     } else {
+
+      console.log(commandObject)
       const runCommand = commandTypeExecute[commandObject.type]({
         command: commandObject,
         deviceManager,
