@@ -1,7 +1,7 @@
 
 
-const executeCommand = require('./src/executeStorkCommand');
-//executeCommand(commandString);
+const executeCommand = require('./src/getExecuteStorkCommand');
+//getExecuteStorkCommand(commandString);
 
 const http = require('http');
 const server = http.createServer((req, res) => {

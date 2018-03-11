@@ -6,7 +6,7 @@ const getConfigManager = require('./util/managers/getConfigManager');
 const getExecuteCommand = require('./util/getExecuteCommand/getExecuteCommand');
 const parseCommand = require('./util/parseCommand/parseCommand');
 
-const executeCommand  = async commandString => {
+const getExecuteStorkCommand  = () => {
   const { getSlaves, loadSlave, unloadSlave } = loadSlaves('./slaves');
   const deviceManager = getDeviceManager(getSlaves(), './persistData/savedDevices');
   const groupManager = getGroupManager('./persistData/savedGroups');
@@ -22,8 +22,11 @@ const executeCommand  = async commandString => {
     unloadSlave,
   });
 
-  const command = parseCommand(commandString);
-  return await executeCommand(command);
+  const executeStorkCommand = async commandString => {
+    const command = parseCommand(commandString);
+    return await executeCommand(command);
+  };
+  return executeStorkCommand;
 };
 
-module.exports = executeCommand;
+module.exports = (getExecuteStorkCommand());

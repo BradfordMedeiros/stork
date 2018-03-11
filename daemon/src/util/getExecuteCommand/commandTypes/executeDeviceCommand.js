@@ -14,11 +14,21 @@ const executeList  = deviceManager => {
 };
 
 const executeAdd = (deviceManager, deviceType, deviceReachabilityInfo) => {
-  deviceManager.addDevice(deviceType, deviceReachabilityInfo);
+  try { // probably shouldn't be try/catch here but doesn't really matter
+    deviceManager.addDevice(deviceType, deviceReachabilityInfo);
+  }catch(err){
+    console.log(err);
+    return 'error adding device';
+  }
   return 'ok';
 };
 const executeRemove = (deviceManager, deviceId) => {
-  deviceManager.removeDevice(deviceId);
+  try {
+    deviceManager.removeDevice(deviceId);
+  }catch(err){
+    console.log(err);
+    return 'error removing device';
+  }
   return 'ok';
 };
 
