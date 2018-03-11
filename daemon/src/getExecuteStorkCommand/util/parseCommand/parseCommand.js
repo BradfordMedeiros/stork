@@ -19,7 +19,6 @@ const groupCommand = require('./commandTypes/groupCommand');
 const commandCommand = require('./commandTypes/commandCommand');
 const configCommand = require('./commandTypes/configCommand');
 const validateConfigCommand = require('./commandTypes/validateConfigCommand');
-const pluginCommand = require('./commandTypes/pluginCommand');
 const statusCommand = require('./commandTypes/statusCommand');
 
 const invalidCommand = () => ({
@@ -32,7 +31,6 @@ const commands = {
   'command' : commandCommand,
   'config' : configCommand,
   'validate-config': validateConfigCommand,
-  'plugin': pluginCommand,
   'status': statusCommand,
 };
 

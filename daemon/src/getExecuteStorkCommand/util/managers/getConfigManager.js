@@ -1,11 +1,11 @@
 
 
-const getConfigManager = ({ deviceManager, getSlaves }) => {
+const getConfigManager = ({ deviceManager, slaves }) => {
   if (deviceManager === undefined){
     throw (new Error('ConfigManager: deviceManager is not defined'));
   }
-  if (getSlaves === undefined){
-    throw (new Error('ConfigManager: getSlaves is not defined'));
+  if (slaves === undefined){
+    throw (new Error('ConfigManager: slaves is not defined'));
   }
 
   const isValidDeviceConfiguration = (deviceId, config) => {
@@ -13,7 +13,7 @@ const getConfigManager = ({ deviceManager, getSlaves }) => {
       throw (new Error('invalid parameters'));
     }
     const deviceType = deviceManager.getDeviceById(deviceId).type;
-    const device = getSlaves()[deviceType];
+    const device = slaves[deviceType];
     if (device === undefined){
       throw (new Error('invalid device type'));
     }
@@ -33,7 +33,7 @@ const getConfigManager = ({ deviceManager, getSlaves }) => {
     const deviceType = device.type;
     const reachabilityInfo = device.info;
 
-    const deviceTypeInstance = getSlaves()[deviceType];
+    const deviceTypeInstance = slaves[deviceType];
     if (device === undefined){
       throw (new Error('invalid device'));
     }

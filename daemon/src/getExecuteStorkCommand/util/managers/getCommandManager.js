@@ -16,15 +16,15 @@ const findCommonCommandsForCommandArray = commandArrays => {
   return commonCommands;
 };
 
-const getCommandManager = ({ deviceManager, groupManager, getSlaves }) => {
+const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
   if (deviceManager === undefined){
     throw (new Error('CommandManager: deviceManager is not defined'));
   }
   if (groupManager ===  undefined){
     throw (new Error('CommandManager: groupManager is not defined'));
   }
-  if (getSlaves === undefined){
-    throw (new Error('CommandManager: getSlaves is not defined'));
+  if (slaves === undefined){
+    throw (new Error('CommandManager: slaves is not defined'));
   }
 
   const listCommandsForDeviceById = deviceId => {
@@ -34,14 +34,13 @@ const getCommandManager = ({ deviceManager, groupManager, getSlaves }) => {
 
     const device = deviceManager.getDeviceById(deviceId);
     const deviceType = device.type;
-    const commands = listCommandsForDevice(getSlaves(), deviceType);
+    const commands = listCommandsForDevice(slaves, deviceType);
     return commands;
   };
   const listCommandsForDeviceByDeviceType = deviceType => {
     if (typeof(deviceType) !== 'string'){
       throw (new Error('device type not defined as string'));
     }
-    const slaves = getSlaves();
     if (slaves[deviceType] === undefined){
       throw (new Error('invalid device type'));
     }
@@ -52,7 +51,7 @@ const getCommandManager = ({ deviceManager, groupManager, getSlaves }) => {
   const executeCommandForDevice = async (deviceId, command) => {
     const device = deviceManager.getDeviceById(deviceId);
     const deviceType = device.type;
-    const deviceSlave = getSlaves()[deviceType];
+    const deviceSlave = slaves[deviceType];
     if (deviceSlave === undefined){
       throw (new Error('invalid device type: ', deviceType));
     }

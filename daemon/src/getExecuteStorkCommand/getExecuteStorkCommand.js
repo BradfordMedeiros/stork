@@ -8,14 +8,14 @@ const getExecuteCommand = require('./util/getExecuteCommand/getExecuteCommand');
 const parseCommand = require('./util/parseCommand/parseCommand');
 
 const getExecuteStorkCommand  = ({ onStatus }) => {
-  const { getSlaves, loadSlave, unloadSlave } = loadSlaves('./slaves');
-  const deviceManager = getDeviceManager(getSlaves(), './persistData/savedDevices');
+  const slaves = loadSlaves('./slaves');
+  const deviceManager = getDeviceManager(slaves, './persistData/savedDevices');
   const groupManager = getGroupManager('./persistData/savedGroups');
-  const commandManager = getCommandManager({ deviceManager, groupManager, getSlaves });
-  const configManager = getConfigManager({ deviceManager, getSlaves });
+  const commandManager = getCommandManager({ deviceManager, groupManager, slaves });
+  const configManager = getConfigManager({ deviceManager, slaves });
   const statusManager = getStatusManager({
     deviceManager,
-    slaves: getSlaves(),
+    slaves,
     onStatus,
   });
 
@@ -25,8 +25,6 @@ const getExecuteStorkCommand  = ({ onStatus }) => {
     commandManager,
     configManager,
     statusManager,
-    loadSlave,
-    unloadSlave,
   });
 
   const executeStorkCommand = async commandString => {

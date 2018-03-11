@@ -8,7 +8,7 @@ describe('command manager', () => {
   it('list commands for a device by id', () => {
     const deviceManager = getDeviceManager(mockSlaves);
     const groupManager = getGroupManager();
-    const commandManager = getCommandManager({ deviceManager, groupManager, getSlaves: () => mockSlaves });
+    const commandManager = getCommandManager({ deviceManager, groupManager, slaves: mockSlaves });
 
     const deviceId = deviceManager.addDevice('mock_slave', '343');
     const commands = commandManager.listCommandsForDeviceById(deviceId);
@@ -17,7 +17,7 @@ describe('command manager', () => {
   it('list commands for a device by device type', () => {
     const deviceManager = getDeviceManager(mockSlaves);
     const groupManager = getGroupManager();
-    const commandManager = getCommandManager({ deviceManager, groupManager, getSlaves: () => mockSlaves });
+    const commandManager = getCommandManager({ deviceManager, groupManager, slaves: mockSlaves });
 
     const commands = commandManager.listCommandsForDeviceByDeviceType('mock_slave');
     assert.deepEqual(commands, ['test']);
@@ -29,7 +29,7 @@ describe('command manager', () => {
   it('execute command for a device', async () => {
     const deviceManager = getDeviceManager(mockSlaves);
     const groupManager = getGroupManager();
-    const commandManager = getCommandManager({ deviceManager, groupManager, getSlaves: () => mockSlaves });
+    const commandManager = getCommandManager({ deviceManager, groupManager, slaves: mockSlaves });
 
     const deviceId = deviceManager.addDevice('mock_slave', '343');
 
