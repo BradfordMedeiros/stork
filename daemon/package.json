@@ -12,6 +12,7 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "minimist": "^1.2.0",
+    "mqtt": "^2.16.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

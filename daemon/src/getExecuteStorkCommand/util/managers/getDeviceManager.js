@@ -44,6 +44,7 @@ const getDeviceManager = (slaves, persistFilePath) => {
 
     const id = uuid();
     devices[id] = ({
+      id,
       type: deviceType,
       info: reachabilityInfo,
     });

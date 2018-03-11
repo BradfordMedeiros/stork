@@ -4,15 +4,13 @@ const path = require('path');
 const executeConfigDeviceByText = async (configManager, deviceId, config) => {
   try {
     await configManager.configureDevice(deviceId, config);
-    console.log('configuration successful for device:', deviceId);
+    return 'configuration successful for device: ' + deviceId;
   }catch(e){
-    console.log('error configuring device')
+    return 'error configuring device';
   }
 };
 const executeConfigDeviceByConfigFile = async (configManager, deviceId, filename) => {
-  console.log('config device by file');
-  const normalizedFileName = path.resolve(filename);
-  throw (new Error('not yet implemented'));
+  return 'not yet implemented'
 };
 
 const executeConfigCommand = async (command, configManager) => {

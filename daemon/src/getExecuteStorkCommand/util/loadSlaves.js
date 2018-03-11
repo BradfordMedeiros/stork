@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const loadSlaves =  slaveFolder => {
-  console.log('started load');
+  console.log('slave loading: started');
   const filesNames = fs.readdirSync(slaveFolder);
 
   const slaveFileNames = filesNames.map(fileName => path.resolve(slaveFolder, fileName));
@@ -11,10 +11,10 @@ const loadSlaves =  slaveFolder => {
 
   const slaveObject = { };
   slaves.forEach(slave => {
-    console.log('loaded: ', slave.type);
+    console.log('slave loading: loaded: ', slave.type);
     slaveObject[slave.type] = slave;
   });
-  console.log('load complete');
+  console.log('slave loading: complete');
 
   return slaveObject;
 };
