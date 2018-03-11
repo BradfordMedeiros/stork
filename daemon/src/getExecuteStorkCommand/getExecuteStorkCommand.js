@@ -7,13 +7,17 @@ const getStatusManager = require('./util/managers/getStatusManager');
 const getExecuteCommand = require('./util/getExecuteCommand/getExecuteCommand');
 const parseCommand = require('./util/parseCommand/parseCommand');
 
-const getExecuteStorkCommand  = () => {
+const getExecuteStorkCommand  = ({ onStatus }) => {
   const { getSlaves, loadSlave, unloadSlave } = loadSlaves('./slaves');
   const deviceManager = getDeviceManager(getSlaves(), './persistData/savedDevices');
   const groupManager = getGroupManager('./persistData/savedGroups');
   const commandManager = getCommandManager({ deviceManager, groupManager, getSlaves });
   const configManager = getConfigManager({ deviceManager, getSlaves });
-  const statusManager = getStatusManager({ deviceManager, slaves: getSlaves()});
+  const statusManager = getStatusManager({
+    deviceManager,
+    slaves: getSlaves(),
+    onStatus,
+  });
 
   const executeCommand = getExecuteCommand({
     deviceManager,
@@ -32,4 +36,4 @@ const getExecuteStorkCommand  = () => {
   return executeStorkCommand;
 };
 
-module.exports = (getExecuteStorkCommand());
+module.exports = getExecuteStorkCommand;

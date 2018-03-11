@@ -1,7 +1,7 @@
 const assert = require('assert');
 const mockSlaves = require('./mocks/mockSlave');
-const getDeviceManager = require('../src/util/managers/getDeviceManager');
-const getStatusManager = require('../src/util/managers/getStatusManager');
+const getDeviceManager = require('../src/getExecuteStorkCommand/util/managers/getDeviceManager');
+const getStatusManager = require('../src/getExecuteStorkCommand/util/managers/getStatusManager');
 
 
 describe('status manager', () => {

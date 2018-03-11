@@ -1,7 +1,7 @@
 const assert = require('assert');
 const mockSlaves = require('./mocks/mockSlave');
-const getDeviceManager = require('../src/util/managers/getDeviceManager');
-const getConfigManager = require('../src/util/managers/getConfigManager');
+const getDeviceManager = require('../src/getExecuteStorkCommand/util/managers/getDeviceManager');
+const getConfigManager = require('../src/getExecuteStorkCommand/util/managers/getConfigManager');
 
 describe('config manager', () => {
   it('can determine if a configuration is valid for a device type', () => {

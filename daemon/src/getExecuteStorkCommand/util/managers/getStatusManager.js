@@ -1,5 +1,5 @@
 
-const getStatusManager = ({ deviceManager, slaves }) => {
+const getStatusManager = ({ deviceManager, onStatus, slaves }) => {
   if (deviceManager === undefined){
     throw (new Error('StatusManager: deviceManager is not defined'));
   }
@@ -12,10 +12,15 @@ const getStatusManager = ({ deviceManager, slaves }) => {
       throw (new Error('invalid parameters'));
     }
 
-    const deviceType = deviceManager.getDeviceById(deviceId).type;
+    const device = deviceManager.getDeviceById(deviceId);
+    const deviceType = device.type;
     const reachabilityInfo = deviceManager.getReachabilityInfoById(deviceId);
     const getStatus = slaves[deviceType].status;
-    return await getStatus(reachabilityInfo);
+    const deviceStatus = await getStatus(reachabilityInfo);
+    setImmediate(() => {
+      onStatus(device, deviceStatus);
+    });
+    return deviceStatus;
   };
 
   const statusManager = {
