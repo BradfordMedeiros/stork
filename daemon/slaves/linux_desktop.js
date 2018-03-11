@@ -18,11 +18,10 @@ const linuxDesktop = {
   isValidConfig:  config => {
     return true;
   },
-  status: async () => {
-    await (new Promise((resolve, reject)=> {
-      resolve();
-    }));
-    return "ok";
+  status: async reachabilityInfo => {
+    console.log('getting device status for linux desktop');
+    console.log('reach info: ', reachabilityInfo);
+    return 'ok';
   },
   config: async (configText, reachabilityInfo) => {
     console.log('config reachability info: ', reachabilityInfo);

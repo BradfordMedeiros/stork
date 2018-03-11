@@ -5,6 +5,7 @@ const executeCommandCommand = require('./commandTypes/executeCommandCommand');
 const executeConfigCommand = require('./commandTypes/executeConfigCommand');
 const executeValidateConfigCommand = require('./commandTypes/executeValidateConfigCommand');
 const executePluginCommand = require('./commandTypes/executePluginCommand');
+const executeStatusCommand = require('./commandTypes/executeStatusCommand');
 
 const executeWarnInvalidCommand = () => 'Invalid command';
 
@@ -15,13 +16,10 @@ const commandTypeExecute = {
   'config' : ({ command, configManager }) => () => executeConfigCommand(command, configManager),
   'validate-config' : ({ command, configManager }) => () => executeValidateConfigCommand(command, configManager),
   'plugin' : ({ command, loadSlave, unloadSlave }) => () => executePluginCommand(command, loadSlave, unloadSlave),
-  'status' : ({ command }) => () => {
-    console.log('command is: ', command);
-    return 'status placeholder';
-  }
+  'status' : ({ command, statusManager }) => () => executeStatusCommand(command, statusManager),
 };
 
-const getExecuteCommand = ({ deviceManager, groupManager, commandManager, configManager, loadSlave, unloadSlave }) => {
+const getExecuteCommand = ({ deviceManager, groupManager, commandManager, configManager, statusManager, loadSlave, unloadSlave }) => {
   if (deviceManager === undefined){
     throw (new Error('device manager not defined in getExecuteCommand'));
   }
@@ -33,6 +31,9 @@ const getExecuteCommand = ({ deviceManager, groupManager, commandManager, config
   }
   if (configManager === undefined){
     throw (new Error('config manager not defined in getExecuteCommand'));
+  }
+  if (statusManager === undefined){
+    throw (new Error('status manager not defined in getExecuteCommand'));
   }
   if (loadSlave === undefined){
     throw (new Error('config manager load slave not defined in getExecuteCommand'));
@@ -53,6 +54,7 @@ const getExecuteCommand = ({ deviceManager, groupManager, commandManager, config
         groupManager,
         commandManager,
         configManager,
+        statusManager,
         unloadSlave,
         loadSlave,
       });

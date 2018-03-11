@@ -13,8 +13,9 @@ const getStatusManager = ({ deviceManager, slaves }) => {
     }
 
     const deviceType = deviceManager.getDeviceById(deviceId).type;
+    const reachabilityInfo = deviceManager.getReachabilityInfoById(deviceId);
     const getStatus = slaves[deviceType].status;
-    return await getStatus();
+    return await getStatus(reachabilityInfo);
   };
 
   const statusManager = {

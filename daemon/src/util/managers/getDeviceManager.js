@@ -65,6 +65,8 @@ const getDeviceManager = (slaves, persistFilePath) => {
 
   const getDeviceById = id => JSON.parse(JSON.stringify(devices[id]));
 
+  const getReachabilityInfoById = id => devices[id].info;
+
   const persist = () => {
     if (shouldPersist){
       const normalizedFilePath = path.resolve(persistFilePath);
@@ -82,6 +84,7 @@ const getDeviceManager = (slaves, persistFilePath) => {
     removeDevice,
     getDevices,
     getDeviceById,
+    getReachabilityInfoById,
     deviceExists,
   };
 
