@@ -9,9 +9,9 @@ const getTopicName = device => `${device.type}/${device.id}`;
 const getTopicValue = status => status;
 
 const programOptions = getProgramOptions(process.argv);
-console.log('options: ', programOptions)
+console.log('info: options: ', programOptions);
 
-const run = (async () => {
+(async () => {
   let publish = () => { };
   if (programOptions.mqttBroker === true){
     publish = await getMqttClient(programOptions.mqttUrl);
