@@ -14,20 +14,27 @@ const loadInitialData = ({ shouldPersist, persistFilePath }) => {
     if (!fs.existsSync(filePath)){
       return { };
     }
-    const data = fs.readFileSync(filePath).toString();
-    return JSON.parse(data);
+    return JSON.parse(fs.readFileSync(filePath).toString());
   }catch (err){
     console.error('critical error could not load file -- looks corrupted');
     process.exit(1);
   }
 };
 
+// since we persist, if a device plugin was removed, we can have invalid data
+// if so we should inform the user elsewhere and need to panic here
+const hasInvalidDeviceType = (slaves, devices) => Object.keys(devices).some(deviceId => slaves[devices[deviceId].type] === undefined);
+
 const getDeviceManager = (slaves, persistFilePath) => {
   if (typeof(slaves) !== 'object'){
     throw (new Error('slaves not defined as object in call to device manager'));
   }
   const shouldPersist = persistFilePath !== undefined;
+
   const devices = loadInitialData({ persistFilePath, shouldPersist });
+  if (hasInvalidDeviceType(slaves, devices) === true){
+    throw (new Error('INVALID_PERSIST_DATA -- persist file has a device type which is  not a valid slave type.'));
+  }
 
   const addDevice = (deviceType, reachabilityInfo) => {
     if (typeof(deviceType) !== 'string' || typeof(reachabilityInfo) !== 'string'){
