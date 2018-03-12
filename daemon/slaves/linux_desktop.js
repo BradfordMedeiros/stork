@@ -19,18 +19,20 @@ const linuxDesktop = {
     return true;
   },
   status: async reachabilityInfo => {
-    console.log('getting device status for linux desktop');
-    console.log('reach info: ', reachabilityInfo);
-    return 'ok';
+    try {
+      await (await fetch(`${reachabilityInfo}/topic`)).text();
+      return true;
+    }catch(e){
+      return 'unreachable';
+    }
   },
   config: async (configText, reachabilityInfo) => {
-    console.log('config reachability info: ', reachabilityInfo);
-
-    const config = JSON.parse(configText);
-    const notifyTopic = config.notify_topic;
-    console.log('notify topic: ', notifyTopic)
-    assert(notifyTopic !== undefined, 'notify topic undefined');
     console.log('reach info: ', reachabilityInfo);
+    console.log('configuring linux desktop---------');
+    const notifyTopic = configText;
+    console.log('notify topic: ', notifyTopic);
+
+    console.log('about to fetch');
     await fetch(`${reachabilityInfo}/topic`, {
       headers: {
         'Accept': 'application/json',
@@ -40,14 +42,12 @@ const linuxDesktop = {
       body: JSON.stringify({
         topic: notifyTopic,
       })
-    })
+    });
+    return 'ok';
   },
   commands: {
-    xdg_open: () => {
-      console.log('not yet implemented');
-    },
-    test: () => {
-      return 'test successful';
+    test: reachabilityInfo => {
+      return 'reachability info is: ' + reachabilityInfo;
     },
   },
 };

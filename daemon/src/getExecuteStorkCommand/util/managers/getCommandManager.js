@@ -64,7 +64,7 @@ const getCommandManager = ({ deviceManager, groupManager, slaves }) => {
     if (commandToExecute === undefined){
       throw (new Error('invalid command for device type'));
     }
-    return await commandToExecute();
+    return await commandToExecute(deviceManager.getReachabilityInfoById(deviceId));
   };
 
   const listCommandsByGroup = group => {
