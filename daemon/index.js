@@ -1,19 +1,26 @@
 const http = require('http');
+const process = require('process');
+const getProgramOptions = require('./src/getProgramOptions');
 const getMqttClient = require('./src/getMqttClient');
 const getExecuteStorkCommand = require('./src/getExecuteStorkCommand/getExecuteStorkCommand');
 
-const MQTT_URL = 'mqtt://127.0.0.1:1883';
 
 const getTopicName = device => `${device.type}/${device.id}`;
 const getTopicValue = status => status;
 
-const run = (async () => {
+const programOptions = getProgramOptions(process.argv);
+console.log('options: ', programOptions)
 
-  const publish = await getMqttClient(MQTT_URL);
-  console.log('network: MQTT CLIENT CONNECTED');
+const run = (async () => {
+  let publish = () => { };
+  if (programOptions.mqttBroker === true){
+    publish = await getMqttClient(programOptions.mqttUrl);
+    console.log('network: MQTT CLIENT CONNECTED');
+  }
 
   const executeCommand = getExecuteStorkCommand({
     onStatus: (device, status) => { publish(getTopicName(device), getTopicValue(status)); },
+
   });
 
   const server = http.createServer((req, res) => {

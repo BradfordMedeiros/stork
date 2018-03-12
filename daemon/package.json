@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start-mqtt": "node index.js -m 'mqtt://127.0.0.1:1883'",
     "test": "mocha tests/*"
   },
   "author": "",
