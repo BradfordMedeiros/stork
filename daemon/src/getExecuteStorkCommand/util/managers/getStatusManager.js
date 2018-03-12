@@ -16,7 +16,14 @@ const getStatusManager = ({ deviceManager, onStatus, slaves }) => {
     const deviceType = device.type;
     const reachabilityInfo = deviceManager.getReachabilityInfoById(deviceId);
     const getStatus = slaves[deviceType].status;
-    const deviceStatus = await getStatus(reachabilityInfo);
+
+    let deviceStatus;
+    try {
+      deviceStatus = await getStatus(reachabilityInfo);
+    }catch(err){
+      deviceStatus = 'error executing status';
+    }
+
     setImmediate(() => {
       onStatus(device, deviceStatus);
     });

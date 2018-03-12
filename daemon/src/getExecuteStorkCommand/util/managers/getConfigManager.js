@@ -37,6 +37,7 @@ const getConfigManager = ({ deviceManager, slaves }) => {
     if (device === undefined){
       throw (new Error('invalid device'));
     }
+
     return await deviceTypeInstance.config(config, reachabilityInfo);
   };
 
