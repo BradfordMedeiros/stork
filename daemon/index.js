@@ -4,7 +4,6 @@ const getProgramOptions = require('./src/getProgramOptions');
 const getMqttClient = require('./src/getMqttClient');
 const getExecuteStorkCommand = require('./src/getExecuteStorkCommand/getExecuteStorkCommand');
 
-
 const getTopicName = device => `${device.type}/${device.id}`;
 const getTopicValue = status => status;
 
@@ -20,7 +19,6 @@ console.log('info: options: ', programOptions);
 
   const executeCommand = getExecuteStorkCommand({
     onStatus: (device, status) => { publish(getTopicName(device), getTopicValue(status)); },
-
   });
 
   const server = http.createServer((req, res) => {
