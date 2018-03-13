@@ -14,9 +14,8 @@
   stork command -d <device_name> -c <command>  (commands will be lowest common denominator of the group)
   stork status -d  <device_name>  / -g <groupname>
 
-  stork config  -d <device_name_ / -g <groupname> -t <configtext> / -f <path to config file>
-  stork validate-config  -d <device_name_ / -g <groupname> -t <configtext> / -f <path to config file>
-
+  stork config  -d <device_name_ / -g <groupname> -c <configtext> / -f <path to config file>
+  stork validate-config  -d <device_name_ / -g <groupname> -c <configtext> / -f <path to config file>
 
 
 example:  
