@@ -1,3 +1,4 @@
+const path = require('path');
 const loadSlaves = require('./util/loadSlaves');
 const getDeviceManager = require('./util/managers/getDeviceManager');
 const getGroupManager = require('./util/managers/getGroupManager');
@@ -7,8 +8,9 @@ const getStatusManager = require('./util/managers/getStatusManager');
 const getExecuteCommand = require('./util/getExecuteCommand/getExecuteCommand');
 const parseCommand = require('./util/parseCommand/parseCommand');
 
-const getExecuteStorkCommand  = ({ onStatus }) => {
-  const slaves = loadSlaves('./slaves');
+const getExecuteStorkCommand  = ({ onStatus, pluginFolder }) => {
+  const slaveFolder = path.resolve(pluginFolder ? pluginFolder : './slaves');
+  const slaves = loadSlaves(slaveFolder);
   const deviceManager = getDeviceManager(slaves, './persistData/savedDevices');
   const groupManager = getGroupManager('./persistData/savedGroups');
   const commandManager = getCommandManager({ deviceManager, groupManager, slaves });

@@ -8,7 +8,6 @@ const getTopicName = device => `${device.type}/${device.id}`;
 const getTopicValue = status => status;
 
 const programOptions = getProgramOptions(process.argv);
-console.log('info: options: ', programOptions);
 
 (async () => {
   let publish = () => { };
@@ -18,6 +17,7 @@ console.log('info: options: ', programOptions);
   }
 
   const executeCommand = getExecuteStorkCommand({
+    pluginFolder: programOptions.pluginFolder,
     onStatus: (device, status) => { publish(getTopicName(device), getTopicValue(status)); },
   });
 

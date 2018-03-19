@@ -7,10 +7,13 @@ const getProgramOptions = args => {
 
   const commander = minimist(args);
   const mqttUrl = commander.m;
+  const pluginFolder = commander.p;
+
   if (mqttUrl === undefined){
     return ({
       mqttBroker: false,
       mqttUrl: null,
+      pluginFolder,
     })
   }else{
     if (typeof(mqttUrl) !== 'string'){
@@ -19,6 +22,7 @@ const getProgramOptions = args => {
     return ({
       mqttBroker: true,
       mqttUrl,
+      pluginFolder,
     });
   }
 };
