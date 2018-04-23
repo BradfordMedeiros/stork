@@ -2,50 +2,56 @@
 
 ~~~~
 
+List all managed devices:
+stork device -l
 
-  stork device --list // list all device info
-  stork device --add -d <device_name> -r <reachability info>
-  stork device --remove ...
+Add a device
+stork device -a testdevice -r 127.0.0.1
 
-   // you can command these, but they will only use what is supported by all groups
-  stork group -add -d device_name
-  stork group -remove -d device_name
+Delete a device
+stork device -d testdevice_id
 
-  stork command -d <device_name> -c <command>  (commands will be lowest common denominator of the group)
-  stork status -d  <device_name>  / -g <groupname>
+List groups
+stork group -l
 
-  stork config  -d <device_name_ / -g <groupname> -c <configtext> / -f <path to config file>
-  stork validate-config  -d <device_name_ / -g <groupname> -c <configtext> / -f <path to config file>
+Add a group
+stork group -a somegroup
+
+Remove a group
+stork group -r anothergroup
+
+Add a device to a group
+stork group -a acoolgroup -d somecooldevice
+
+Remove a device from a group
+stork group -r acoolgroup -d somecooldevice
+
+List commands for a device
+stork command -l -d some_device_id
+
+List commands for a device type
+stork command -l -t test_type
+
+List commands for a group
+stork command -g some_group -l
+
+Execute command for a device
+stork command -d some_device_id -c some_command
+
+Execute command for a group
+stork command -g some_group_name -c some_command
+
+Configure a device
+stork config -d some_device_id -c some_config_data
 
 
-example:  
-// config is arbitary text that the device will parse
+Configure a device with a file (not yet supported)
+stork config -d some_device_id -f some_config_file
 
-config = {
-    status: () => {
-    
-    },
-    config: () => {
-    
-    },
-    report-on: () => {
-    
-    },
-    report-off: () => {
-    
-    },
-}
 
-say android config
-{
-   topic: 'states/geolocation',
-   frequency: 60 * 1000, // 10 secconds
-   start_on: true,  
-}
+Validate config for a device
+stork validate-config -d some_device_id -c some_config_text
 
-device should respond to 
-- status ok/bad
-- config 
-
-~~~~
+Validate config for a device with file
+stork validate-config -d some_device_id -f some_config_file
 
